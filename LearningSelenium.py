@@ -46,10 +46,15 @@ object_to_click.click()
 browser.switch_to.default_content()
 
 # give the lab some time to load properly
-time.sleep(15)
+time.sleep(30)
 
 # switch computers to computerA
-
+browser.switch_to.frame(browser.find_element(By.XPATH, '//iframe[@id = "cyrinFrame"]'))
+browser.find_element(By.XPATH, "//button[@id = 'computersMenuButton']").click()
+time.sleep(1)
+browser.find_element(By.XPATH, "//*[@id='displaymachine1_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa']").click()
+time.sleep(5)
+browser.switch_to.default_content()
 
 
 
