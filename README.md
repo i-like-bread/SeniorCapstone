@@ -1,1 +1,2 @@
-# Senior Capstone Project for NDSU's CSCI 445
+# Senior Capstone Project 
+Group Project for NDSU CSCI 445
