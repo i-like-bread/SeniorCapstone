@@ -24,6 +24,8 @@ driver.find_element(By.XPATH, '//*[@id="username"]').send_keys(username + Keys.T
 # wait for text to load
 time.sleep(5)
 
+# if you are not already in a continuation of the exercise,
+# start a new exercise
 if driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]') is True:
     #find CYRIN iframe and switch to it
     iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
@@ -32,12 +34,12 @@ if driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]') is True:
     driver.find_element(By.XPATH, '//*[@id="launch-actions"]/form/input[4]').click()
     #switch back to original iframe
     driver.switch_to.default_content()
-else:
-    print("remember to manually end the exercise")
 
-
-
-
+# end the exercise
+driver.switch_to.frame(driver.find_element(By.XPATH, '//iframe[@id = "cyrinFrame"]'))
+driver.find_element(By.XPATH, "//button[@id = 'btnEndExercise']").click()
+time.sleep(5)
+driver.find_element(By.XPATH, "//button[@id = 'btnConfirmEndExercise']").click()
 
 #close driver
-# driver.close()
+driver.close()
