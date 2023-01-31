@@ -35,6 +35,14 @@ if driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]') is True:
     #switch back to original iframe
     driver.switch_to.default_content()
 
+# switch from Computer C to Computer A (outside of the vm)
+
+
+
+# inside the vm: open the terminal
+
+
+
 # end the exercise
 driver.switch_to.frame(driver.find_element(By.XPATH, '//iframe[@id = "cyrinFrame"]'))
 driver.find_element(By.XPATH, "//button[@id = 'btnEndExercise']").click()
