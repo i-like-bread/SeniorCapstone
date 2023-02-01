@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from getpass import getpass
+from selenium.webdriver.support.ui import Select
 
 # prompt for username and password
 username = input("Username: ")
@@ -26,6 +27,7 @@ time.sleep(5)
 
 # if you are not already in a continuation of the exercise,
 # start a new exercise
+# doesn't actually work??
 if driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]') is True:
     #find CYRIN iframe and switch to it
     iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
@@ -35,9 +37,13 @@ if driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]') is True:
     #switch back to original iframe
     driver.switch_to.default_content()
 
+# wait for the vm to load
+time.sleep(10)
+
 # switch from Computer C to Computer A (outside of the vm)
-
-
+# work in progress
+select = Select(driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]'))
+select.select_by_visible_text('ComputerA')
 
 # inside the vm: open the terminal
 
