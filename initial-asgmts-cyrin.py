@@ -1,18 +1,19 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+from selenium.webdriver import ActionChains
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-from getpass import getpass
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
+from getpass import getpass
+import time
 
 # prompt for username and password
 username = input("Username: ")
 password = getpass()
 
-# import webdriver to open Chrome
-from selenium import webdriver
+# open Chrome
 driver = webdriver.Chrome()
 
 # navigate to the website and make it fullscreen
@@ -31,6 +32,7 @@ iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
 driver.switch_to.frame(iframe)
 
 # if the exercise hasn't started,
+# currently the exercise assumes it has already been started
 try:
     #  check for the Training Scenario heading
     # throwing errors here
@@ -46,6 +48,7 @@ except NoSuchElementException:
 driver.switch_to.default_content()
 
 # switch from Computer C to Computer A (outside of the vm):
+
 #find CYRIN iframe and switch to it
 iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
 driver.switch_to.frame(iframe)
@@ -56,18 +59,46 @@ driver.switch_to.frame(iframe)
 time.sleep(10)
 
 # switch to Computer A
+# driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]').click()
+# driver.find_element(By.XPATH, '//*[@id="machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
+
+# inside the vm: open the terminal:
+
+# driver.find_element(By.XPATH, '//*[@id="instruction-nav"]/div')
+
+#find the computer screen
+#find and click the fullscreen button
+# driver.find_element(By.XPATH, '//*[@id="btnToggleFullScreen"]').click()
+# ac = ActionChains(driver)
+# default coords are top middle
+# computerScreen = driver.find_element(By.XPATH, '//*[@id="noVNC_screen"]/div/canvas')
+#move to terminal icon and click
+# ac.move_to_element_with_offset(computerScreen, -400, 390).context_click().perform()
+
+
+# Jacob's code
+#find and click the fullscreen button
+driver.find_element(By.XPATH, '//*[@id="btnToggleFullScreen"]').click()
+
+#find and click computer view button
 driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]').click()
-driver.find_element(By.XPATH, '//*[@id="machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
+#find and click computer A (Ubuntu)
+driver.find_element(By.XPATH, '//*[@id="displaymachine1_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
 
-# inside the vm: open the terminal
+time.sleep(5)
 
-action = webdriver.common.action_chains.ActionChains(driver)
-action.move_to_element_with_offset(5, 5, 5)
-action.click()
-action.perform()
+ac = ActionChains(driver)
+#find the computer screen
+computerScreen = driver.find_element(By.XPATH, '//*[@id="noVNC_screen"]/div/canvas')
+#move to terminal icon and click
+ac.move_to_element_with_offset(computerScreen, -400, 390).click().perform()
 
 
 
+
+
+
+time.sleep(20)
 
 #switch back to original iframe code
 # driver.switch_to.default_content()
