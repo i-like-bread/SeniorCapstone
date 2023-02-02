@@ -25,28 +25,30 @@ driver.find_element(By.XPATH, '//*[@id="username"]').send_keys(username + Keys.T
 # wait for text to load
 time.sleep(5)
 
-# if you are not already in a continuation of the exercise,
-# start a new exercise
-# doesn't actually work?? 
-# theres an iframe in every page so uhhh
-if driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]'):
-    #find CYRIN iframe and switch to it
-    iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
-    driver.switch_to.frame(iframe)
-    #find the start button and click
+# enter iframe
+iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
+driver.switch_to.frame(iframe)
+
+# if the exercise hasn't started, checked for by the training range image,
+if driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/img'):
+    #find the start exercise button and click
     driver.find_element(By.XPATH, '//*[@id="launch-actions"]/form/input[4]').click()
     #switch back to original iframe
     driver.switch_to.default_content()
 
 # wait for the vm to load
-time.sleep(10)
+time.sleep(20)
 
 # switch from Computer C to Computer A (outside of the vm):
 #find CYRIN iframe and switch to it
 iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
 driver.switch_to.frame(iframe)
 
-driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]').click()
+
+# issue - waiting for the exercise to finish starting up takes a long time
+
+
+driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]]').click()
 driver.find_element(By.XPATH, '//*[@id="displaymachine1_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
 
 
