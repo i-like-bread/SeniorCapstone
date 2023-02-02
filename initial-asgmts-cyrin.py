@@ -30,9 +30,11 @@ time.sleep(5)
 iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
 driver.switch_to.frame(iframe)
 
-# if the exercise hasn't started, checked for by the Training Scenario heading,
-# throwing errors here
+# if the exercise hasn't started,
 try:
+    #  check for the Training Scenario heading
+    # throwing errors here
+    # maybe include a check for specific text?
     if driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/h2'):
         #find the start exercise button and click
         driver.find_element(By.XPATH, '//*[@id="launch-actions"]/form/input[4]').click()
@@ -41,27 +43,28 @@ try:
 except NoSuchElementException:
     pass
 
-
+driver.switch_to.default_content()
 
 # switch from Computer C to Computer A (outside of the vm):
 #find CYRIN iframe and switch to it
-# iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
-# driver.switch_to.frame(iframe)
+iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
+driver.switch_to.frame(iframe)
 
 
 # issue - waiting for the exercise to finish starting up takes a long time
 # wait for the vm to load
 time.sleep(10)
 
-# couldn't find the button
-driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]]').click()
-driver.find_element(By.XPATH, '//*[@id="displaymachine1_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
-
-
-
-
+# switch to Computer A
+driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]').click()
+driver.find_element(By.XPATH, '//*[@id="machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
 
 # inside the vm: open the terminal
+
+action = webdriver.common.action_chains.ActionChains(driver)
+action.move_to_element_with_offset(5, 5, 5)
+action.click()
+action.perform()
 
 
 
