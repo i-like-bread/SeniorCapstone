@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 from getpass import getpass
 
@@ -46,14 +47,31 @@ object_to_click.click()
 browser.switch_to.default_content()
 
 # give the lab some time to load properly
-time.sleep(30)
+time.sleep(180)
 
 # switch computers to computerA
 browser.switch_to.frame(browser.find_element(By.XPATH, '//iframe[@id = "cyrinFrame"]'))
 browser.find_element(By.XPATH, "//button[@id = 'computersMenuButton']").click()
-time.sleep(1)
+time.sleep(3)
 browser.find_element(By.XPATH, "//*[@id='displaymachine1_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa']").click()
-time.sleep(5)
+time.sleep(4)
+
+# switch to full screen
+browser.find_element(By.XPATH, '//*[@id="btnToggleFullScreen"]').click()
+time.sleep(2)
+
+# Move to console icon and click it
+action = ActionChains(browser)
+action.move_to_element(browser.find_element(By.XPATH, "//*[@id = 'noVNC_screen']/div/canvas"))
+time.sleep(2)
+action.move_by_offset(-400, 390)
+time.sleep(1)
+action.click().perform()
+
+time.sleep(10)
+
+
+
 browser.switch_to.default_content()
 
 
