@@ -29,15 +29,16 @@ time.sleep(5)
 iframe = driver.find_element(By.XPATH, '//*[@id="cyrinFrame"]')
 driver.switch_to.frame(iframe)
 
-# if the exercise hasn't started, checked for by the training range image,
-if driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/img'):
+# if the exercise hasn't started, checked for by the Training Scenario heading,
+# throwing errors here
+if driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/h2'):
     #find the start exercise button and click
     driver.find_element(By.XPATH, '//*[@id="launch-actions"]/form/input[4]').click()
     #switch back to original iframe
     driver.switch_to.default_content()
 
 # wait for the vm to load
-time.sleep(20)
+time.sleep(60)
 
 # switch from Computer C to Computer A (outside of the vm):
 #find CYRIN iframe and switch to it
@@ -70,9 +71,9 @@ time.sleep(10)
 
 # end the exercise via button in iframe
 # driver.switch_to.frame(driver.find_element(By.XPATH, '//iframe[@id = "cyrinFrame"]'))
-driver.find_element(By.XPATH, "//button[@id = 'btnEndExercise']").click()
-time.sleep(5)
-driver.find_element(By.XPATH, "//button[@id = 'btnConfirmEndExercise']").click()
+# driver.find_element(By.XPATH, "//button[@id = 'btnEndExercise']").click()
+# time.sleep(5)
+# driver.find_element(By.XPATH, "//button[@id = 'btnConfirmEndExercise']").click()
 
 #close driver
-driver.close()
+# driver.close()
