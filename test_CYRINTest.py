@@ -10,6 +10,15 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+"""
+This script is generated from SeleniumIDE.
+It  1) Launches the Getting Started Lab
+    2) Switches to Computer A
+    3) Opens the Terminal
+    4) Enters "ls" in the Terminal (not showing?)
+    5) Ends the Lab
+"""
+
 class TestCYRINTest():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
