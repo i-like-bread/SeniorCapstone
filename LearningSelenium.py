@@ -9,8 +9,6 @@ from getpass import getpass
 username = input("Username: ")
 password = getpass()
 
-print(username, password)
-
 # create a browser for selenium
 browser = webdriver.Chrome()
 
