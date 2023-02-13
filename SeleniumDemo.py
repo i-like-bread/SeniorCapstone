@@ -10,6 +10,7 @@ import time
 driver = webdriver.Chrome()
 driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=166")
 
+#ToDo: Pass login stuff as console input, too lazy to do that now
 #username and password fields
 username = login.username
 password = login.password
@@ -47,16 +48,16 @@ def mousePosClick():
     mousePos = pyautogui.position()
     pyautogui.click(mousePos)
 
-#prompt user to move curser to terminal, click after 5 seconds
-jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (5 Seconds)')"
+#prompt user to move curser to terminal, click after 10 seconds
+jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (10 Seconds)')"
 driver.execute_script(jsIconAlert)
-time.sleep(5)
+time.sleep(10)
 mousePosClick()
 
-#prompt user to move curser to terminal window, click after 5 seconds
-jsWindowAlert = "alert('Please move the mouse curser to the terminal window within the virtual machine (5 Seconds)')"
+#prompt user to move curser to terminal window, click after 10 seconds
+jsWindowAlert = "alert('Please move the mouse curser to the terminal window within the virtual machine (10 Seconds)')"
 driver.execute_script(jsWindowAlert)
-time.sleep(5)
+time.sleep(10)
 mousePosClick()
 
 #enter ls
