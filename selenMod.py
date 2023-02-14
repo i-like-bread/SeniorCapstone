@@ -76,7 +76,7 @@ def ask_to_pauseB():
             
             break
         
-        elif ask_to_continues == "y"
+        elif ask_to_continues == "y":
 
             print('Pausing for 10s')
             time.sleep(10)
