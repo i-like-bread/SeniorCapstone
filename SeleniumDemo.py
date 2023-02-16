@@ -1,8 +1,7 @@
-#This is the original script we demoed in class
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from loginCredentials import login
-from selenium.webdriver.common.action_chains import ActionChains
+import functions
 import pyautogui
 import time
 
@@ -43,22 +42,15 @@ driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]').click()
 driver.find_element(By.XPATH, '//*[@id="displaymachine1_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
 time.sleep(5)
 
-#getting mouse coords and clicking fuction
-def mousePosClick():
-    mousePos = pyautogui.position()
-    pyautogui.click(mousePos)
-
-#prompt user to move curser to terminal, click after 10 seconds
-jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (10 Seconds)')"
+#prompt user to move curser to terminal, click after user hits enter
+jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (Press Enter to Finish)')"
 driver.execute_script(jsIconAlert)
-time.sleep(10)
-mousePosClick()
+functions.mousePositionClick()
 
-#prompt user to move curser to terminal window, click after 10 seconds
-jsWindowAlert = "alert('Please move the mouse curser to the terminal window within the virtual machine (10 Seconds)')"
+#prompt user to move curser to terminal window, click after user hits enter
+jsWindowAlert = "alert('Please move the mouse curser to the terminal window within the virtual machine (Press Enter to Finish)')"
 driver.execute_script(jsWindowAlert)
-time.sleep(10)
-mousePosClick()
+functions.mousePositionClick()
 
 #enter ls
 pyautogui.press('l')
