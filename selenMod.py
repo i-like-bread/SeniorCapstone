@@ -14,7 +14,7 @@ def pick_option():
     
     while True:
         
-        getInputOption = int(input("Press 1 to continue, Press 2 to pause for 5 seconds, Press 3 to hit return button "))
+        getInputOption = int(input("Press 1 to continue, Press 2 to pause for 5 seconds"))
     
         time.sleep(5)
         
@@ -36,7 +36,8 @@ def pick_option():
             
             print("Invalid input")
             
-                
+#The alternative step is kind of hard.  Using driver = webdriver.Chrome() will causes the module to open a blank Chrome Browser.  I think we should find way to automate it without using selenium             
+               
 
 
 # Team 2 (two person team): Write a function as a separate Python module.  This function will:
