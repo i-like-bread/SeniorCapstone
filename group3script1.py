@@ -14,14 +14,14 @@ golden = open("isThisGolden.py", "r")
 outF = open("newScript.py", "a")
 
 # Manually edit the Enhanced Script to add import team3module to top of script
-outF.write("import group3script1 \n")
+outF.write("import selenMod \n")
 
 # Read the Golden Script one line at a time.
 for line in golden:
     outF.write(line)
     outF.write("\n")
     if line.startswith('#'):
-        outF.write("\n # tada \n")
+        outF.write("# tada \n")
 
 outF.close()
 golden.close()
