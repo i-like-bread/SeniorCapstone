@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from loginCredentials import login
 import functions
-import pyautogui
 import time
 
 #driver goes to CYRIN login
@@ -46,17 +45,18 @@ time.sleep(5)
 jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (Press Enter to Finish)')"
 driver.execute_script(jsIconAlert)
 functions.mousePositionClick()
+time.sleep(1)
+
 
 #prompt user to move curser to terminal window, click after user hits enter
 jsWindowAlert = "alert('Please move the mouse curser to the terminal window within the virtual machine (Press Enter to Finish)')"
 driver.execute_script(jsWindowAlert)
 functions.mousePositionClick()
+time.sleep(1)
 
-#enter ls
-pyautogui.press('l')
-pyautogui.press('s')
-pyautogui.press('enter')
-time.sleep(10)
+jsTestAlert = "alert('Testing keyboardInput, will record keys in console (Press Enter to Finish)')"
+driver.execute_script(jsTestAlert)
+functions.keyboardInput()
 
 #switch back to original iframe
 driver.switch_to.default_content()
