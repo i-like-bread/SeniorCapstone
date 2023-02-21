@@ -20,5 +20,5 @@ def scriptEnhancer():
             else:
                 file.write(line)
 
-    
+# Runs the function and creates Enhanced_Script.py
 scriptEnhancer()
