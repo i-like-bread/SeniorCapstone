@@ -2,7 +2,6 @@
 import pytest
 import time
 import json
-from selenMod import pick_option
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -31,48 +30,21 @@ class TestCYRINTest():
   def test_cYRINTest(self):
     # Test name: CYRINTest
     # Step # | name | target | value | comment
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 1 | open | /mod/cyrin/view.php?id=166 |  | Open browser to Cyrin lab
+    # 1 | open | /mod/cyrin/view.php?id=166 |  | 
     self.driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=166")
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 2 | setWindowSize | 1552x840 |  | Make broswer fullscreen
+    # 2 | setWindowSize | 1552x840 |  | 
     self.driver.set_window_size(1552, 840)
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 3 | selectFrame | index=0 |  | Switch to the cyrinFrame iframe
+    # 3 | selectFrame | index=0 |  | 
     self.driver.switch_to.frame(0)
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 4 | click | name=control |  | Click on the button to start/resume the lab
+    # 4 | click | name=control |  | 
     self.driver.find_element(By.NAME, "control").click()
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 5 | click | id=current-vm-name |  | Click on the computer selection dropdown box
+    # 5 | click | id=current-vm-name |  | 
     self.driver.find_element(By.ID, "current-vm-name").click()
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 6 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa |  | Select ComputerA
+    # 6 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa |  | 
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 7 | click | css=.exercise-page |  | Click on the terminal icon
+    # 7 | click | css=.exercise-page |  | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 8 | click | css=#btnEndExercise > span:nth-child(1) |  | Select the "End Exercise" button
+    # 8 | click | css=#btnEndExercise > span:nth-child(1) |  | 
     self.driver.find_element(By.CSS_SELECTOR, "#btnEndExercise > span:nth-child(1)").click()
-    
-    # Prompt user for next step
-    self.driver.pick_option()
-    # 9 | click | id=btnConfirmEndExercise |  | Select the "End Exercise" button on the pop up
+    # 9 | click | id=btnConfirmEndExercise |  | 
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
