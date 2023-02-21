@@ -58,24 +58,6 @@ driver.switch_to.frame(iframe)
 # wait for the vm to load
 time.sleep(10)
 
-# switch to Computer A
-# driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]').click()
-# driver.find_element(By.XPATH, '//*[@id="machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
-
-# inside the vm: open the terminal:
-
-# driver.find_element(By.XPATH, '//*[@id="instruction-nav"]/div')
-
-#find the computer screen
-#find and click the fullscreen button
-# driver.find_element(By.XPATH, '//*[@id="btnToggleFullScreen"]').click()
-# ac = ActionChains(driver)
-# default coords are top middle
-# computerScreen = driver.find_element(By.XPATH, '//*[@id="noVNC_screen"]/div/canvas')
-#move to terminal icon and click
-# ac.move_to_element_with_offset(computerScreen, -400, 390).context_click().perform()
-
-
 # Jacob's code
 #find and click the fullscreen button
 driver.find_element(By.XPATH, '//*[@id="btnToggleFullScreen"]').click()
@@ -93,21 +75,16 @@ computerScreen = driver.find_element(By.XPATH, '//*[@id="noVNC_screen"]/div/canv
 #move to terminal icon and click
 ac.move_to_element_with_offset(computerScreen, -400, 390).click().perform()
 
-
-
-
-
-
 time.sleep(20)
 
 #switch back to original iframe code
-# driver.switch_to.default_content()
+driver.switch_to.default_content()
 
 # end the exercise via button in iframe
-# driver.switch_to.frame(driver.find_element(By.XPATH, '//iframe[@id = "cyrinFrame"]'))
-# driver.find_element(By.XPATH, "//button[@id = 'btnEndExercise']").click()
-# time.sleep(5)
-# driver.find_element(By.XPATH, "//button[@id = 'btnConfirmEndExercise']").click()
+driver.switch_to.frame(driver.find_element(By.XPATH, '//iframe[@id = "cyrinFrame"]'))
+driver.find_element(By.XPATH, "//button[@id = 'btnEndExercise']").click()
+time.sleep(5)
+driver.find_element(By.XPATH, "//button[@id = 'btnConfirmEndExercise']").click()
 
 #close driver
-# driver.close()
+driver.close()
