@@ -1,7 +1,3 @@
-from selenium import webdriver
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.action_chains import ActionChains
-# import time
 import os
 import pytest
 
@@ -15,19 +11,17 @@ import pytest
 golden = open("isThisGolden.py", "r")
 
 # the new script
-outF = open("newScript.py", "w")
+outF = open("newScript.py", "a")
 
 # Manually edit the Enhanced Script to add import team3module to top of script
-outF.write("import group3script1")
+outF.write("import group3script1 \n")
 
 # Read the Golden Script one line at a time.
 for line in golden:
     outF.write(line)
     outF.write("\n")
-    #if line.startswith('#'):
-    #    outF.write("\n print(prompt_user()) \n")
-    #else:
-    #    outF.write(line)
+    if line.startswith('#'):
+        outF.write("\n # tada \n")
 
 outF.close()
 golden.close()
