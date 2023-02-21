@@ -1,7 +1,8 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-import time
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.action_chains import ActionChains
+# import time
+import os
 
 # Read the Golden Script one line at a time.
 # For each line your read write it verbatim to the Enhanced Script file.
@@ -11,5 +12,8 @@ import time
 # Make sure the line you add is indented correctly.
 # Manually edit the Enhanced Script to add import team3module
 # (or whatever their module is called) to the top of the script.
+
+import isThisGolden
+
 
 
