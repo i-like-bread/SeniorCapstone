@@ -2,7 +2,7 @@
 
 from pynput import keyboard
 
-def on_press(key):
+def on_press_special(key):
     try:
         # Convert the key to a string
         key_str = str(key.char)
@@ -17,7 +17,7 @@ def on_press(key):
         pass
 
 # Create a keyboard listener
-listener = keyboard.Listener(on_press=on_press)
+listener = keyboard.Listener(on_press=on_press_special)
 # Start the listener
 listener.start()
 # Wait for the listener to stop (when a key between 1 and 2 is pressed)
