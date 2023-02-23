@@ -14,7 +14,7 @@ def scriptEnhancer():
             if re.match(regex, line):
                 file.write("\n")
                 file.write("    # Prompts the user for next action\n")
-                file.write("    self.driver.pick_option()\n")
+                file.write("    selenMod.pick_option()\n")
                 file.write(line)
             # else, the line is just written to the new file
             else:
