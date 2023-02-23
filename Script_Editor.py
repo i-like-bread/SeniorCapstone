@@ -5,6 +5,7 @@ import re
 def scriptEnhancer():
     regex = "^\s+#\s\d+"                    # regex to match any comment that is tabbed in and starts with a number
     file = open("Enhanced_Script.py", "w")  # Create a new file for the Enhanced_Script
+    file.write("# Script enhanced by ATCorp NDSU capstone team\n")
     file.write("import selenMod\n")         # Write the import to the Team2 module at the beginning of the script
     
     # Opens the Golden_Script.py and loops through it
