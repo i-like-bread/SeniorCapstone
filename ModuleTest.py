@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException, MoveTargetOutOfBo
 import time
 from pynput import keyboard
 
-# When call this function, press 1 or 2 twice to able to run the script
+# When call this function, press 1 or 2 twice to able to run the script, when calling it make sure it have like this prompt_user('0')
 
        
 def prompt_user(key):
