@@ -42,14 +42,14 @@ driver.find_element(By.XPATH, '//*[@id="displaymachine1_Ubuntu2004Desktop-4000-0
 time.sleep(5)
 
 #prompt user to move curser to terminal, click after user hits enter
-jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (Press Enter to Finish)')"
+jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (Testing MouseClick coords) (Press Enter to Finish)')"
 driver.execute_script(jsIconAlert)
 functions.mousePositionClick()
 time.sleep(1)
 
 
 #prompt user to move curser to terminal window, click after user hits enter
-jsWindowAlert = "alert('Please move the mouse curser to the terminal window within the virtual machine (Press Enter to Finish)')"
+jsWindowAlert = "alert('Please move the mouse curser to the terminal window within the virtual machine (Testing MouseClick coords) (Press Enter to Finish)')"
 driver.execute_script(jsWindowAlert)
 functions.mousePositionClick()
 time.sleep(1)
