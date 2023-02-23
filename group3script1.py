@@ -24,5 +24,10 @@ for line in golden:
         outF.write(line)
     outF.write("\n")
 
+outF.write('testClass = TestCYRINTest() \n')
+outF.write('testClass.setup_method("") \n')
+outF.write('testClass.test_cYRINTest() \n')
+outF.write('testClass.teardown_method("") \n')
+
 outF.close()
 golden.close()
