@@ -44,7 +44,7 @@ def waitInput(key):
 
 #get MouseClick coords and click
 def mouseClickInput():
-    #if user hits enter
+    #wait until user hits enter
     action()
     #get current mouse position
     mousePos = pyautogui.position()
