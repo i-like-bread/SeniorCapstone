@@ -48,4 +48,3 @@ class TestCYRINTest():
     self.driver.find_element(By.CSS_SELECTOR, "#btnEndExercise > span:nth-child(1)").click()
     # 9 | click | id=btnConfirmEndExercise |  | 
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
-  
