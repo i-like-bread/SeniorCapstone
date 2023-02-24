@@ -1,12 +1,12 @@
 """ A function that loops through the Golden_Script.py file and adds in 
-calls to the selenMod.py function before each line of code."""
+calls to the promptUser() function from functions.py function before each line of code."""
 import re
 
 def scriptEnhancer():
     regex = "^\s+#\s\d+"                    # regex to match any comment that is tabbed in and starts with a number
     file = open("Enhanced_Script.py", "w")  # Create a new file for the Enhanced_Script
     file.write("# Script enhanced by ATCorp NDSU capstone team\n")
-    file.write("import selenMod\n")         # Write the import to the Team2 module at the beginning of the script
+    file.write("import functions\n")         # Write the import to the Team2 module at the beginning of the script
     
     # Opens the Golden_Script.py and loops through it
     with open("Golden_Script.py") as script:
@@ -16,7 +16,7 @@ def scriptEnhancer():
             if re.match(regex, line):
                 file.write("\n")
                 file.write("    # Prompts the user for next action\n")
-                file.write("    selenMod.pick_option()\n")
+                file.write("    functions.promptUser()\n")
                 file.write(line)
                 
             # else, the line is just written to the new file
