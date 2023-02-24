@@ -31,7 +31,7 @@ driver.switch_to.frame(iframe)
 try:
     driver.find_element(By.XPATH, '//*[@id="launch-actions"]/form/input[4]').click()
 except:
-    print("No Start Button")
+    print("Skipped Start Button")
 time.sleep(5)
 
 #ToDo: If user scrolls and button is not in view, crashes
@@ -41,6 +41,7 @@ driver.find_element(By.XPATH, '//*[@id="computersMenuButton"]').click()
 driver.find_element(By.XPATH, '//*[@id="displaymachine1_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa"]').click()
 time.sleep(5)
 
+"""
 #prompt user to move curser to terminal, click after user hits enter
 jsIconAlert = "alert('Please move the mouse curser to the terminal icon on the sidebar within the virtual machine (Testing MouseClick coords) (Press Enter to Finish)')"
 driver.execute_script(jsIconAlert)
@@ -57,6 +58,10 @@ time.sleep(1)
 jsTestAlert = "alert('Testing keyboardInput, will record keys in console (Press Enter to Finish)')"
 driver.execute_script(jsTestAlert)
 functions.keyboardInput()
+"""
+jsTestAlert = "alert('Enter to Continue; w to Wait (0-9 secs); m to MouseClick; k to KeyboardInput; ENTER TO FINISH STATEMENT')"
+driver.execute_script(jsTestAlert)
+functions.promptUser()
 
 #switch back to original iframe
 driver.switch_to.default_content()
