@@ -15,7 +15,7 @@ def promptUser():
         print("\n'w' was pressed: Waiting")
         waitInput()
     elif(key == 'm'):
-        print("\n'm' was pressed: MouseClick")
+        print("\n'm' was pressed: MouseClick\nPress Enter to get MouseClick Coords")
         mouseClickInput()
     elif(key == 'k'):
         print("\n'k' was pressed: KeyboardInput")
@@ -38,7 +38,6 @@ def waitInput():
 
 #get MouseClick coords and click
 def mouseClickInput():
-    print("Press Enter to get mouse coordinates")
     key = keyboard.read_key()
     if(key == 'enter'):
         #get current mouse position
