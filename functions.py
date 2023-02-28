@@ -9,16 +9,16 @@ import time
 def promptUser():
     key = keyboard.read_key()
     if(key == 'c'):
-        print("'Enter' was pressed: Continuing")
+        print("\n'Enter' was pressed: Continuing")
         time.sleep(1)
     elif(key == 'w'):
-        print("'w' was pressed: Waiting")
+        print("\n'w' was pressed: Waiting")
         waitInput()
     elif(key == 'm'):
-        print("'m' was pressed: MouseClick")
+        print("\n'm' was pressed: MouseClick")
         mouseClickInput()
     elif(key == 'k'):
-        print("'k' was pressed: KeyboardInput")
+        print("\n'k' was pressed: KeyboardInput")
         keyboardInput()
     else:
         print("Try Again")
@@ -29,7 +29,7 @@ def promptUser():
 #ToDo: Allow input when not in console (eg. like keyboard input); maybe just call keyboardInput?
 #wait for specified amount of time
 def waitInput():
-    waitTime = input("Enter amount of time to wait: ")
+    waitTime = input("Enter amount of time to wait (Enter to finish): ")
     waitTuple = ("Wait", waitTime)
     print(waitTuple)
     time.sleep(1)
@@ -38,6 +38,7 @@ def waitInput():
 
 #get MouseClick coords and click
 def mouseClickInput():
+    print("Press Enter to get mouse coordinates")
     key = keyboard.read_key()
     if(key == 'enter'):
         #get current mouse position
@@ -53,7 +54,7 @@ def mouseClickInput():
 
 
 def keyboardInput():
-    keys = input("Enter keys/text to input: ")
+    keys = input("Enter keys/text to input (Enter to finish): ")
     keyboardInputTuple = ("KeyboardInput", keys)
     print(keyboardInputTuple)
     time.sleep(1)
