@@ -21,8 +21,8 @@ def promptUser():
         print("'k' was pressed: KeyboardInput")
         keyboardInput()
     else:
-        promptUser()
         print("Try Again")
+        promptUser()
 
 
 
