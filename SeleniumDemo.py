@@ -7,6 +7,7 @@ import time
 #driver goes to CYRIN login
 driver = webdriver.Chrome()
 driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=166")
+1
 
 #ToDo: Pass login stuff as console input, too lazy to do that now
 #username and password fields
@@ -59,8 +60,17 @@ jsTestAlert = "alert('Testing keyboardInput, will record keys in console (Press 
 driver.execute_script(jsTestAlert)
 functions.keyboardInput()
 """
-jsTestAlert = "alert('Enter to Continue; w to Wait (0-9 secs); m to MouseClick; k to KeyboardInput; ENTER TO FINISH STATEMENT')"
+jsTestAlert = "alert('c to Continue; w to Wait; m to MouseClick; k to KeyboardInput;')"
 driver.execute_script(jsTestAlert)
+print(1)
+functions.promptUser()
+print(2)
+functions.promptUser()
+print(3)
+functions.promptUser()
+print(4)
+functions.promptUser()
+print(5)
 functions.promptUser()
 
 #switch back to original iframe
