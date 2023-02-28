@@ -32,38 +32,38 @@ class TestCYRINTest():
     # Test name: CYRINTest
     # Step # | name | target | value | comment
     # 1 | open | /mod/cyrin/view.php?id=166 |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=166")
     # 2 | setWindowSize | 1552x840 |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.set_window_size(1552, 840)
     # 3 | selectFrame | index=0 |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.switch_to.frame(0)
     # 4 | click | name=control |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.find_element(By.NAME, "control").click()
     # 5 | click | id=current-vm-name |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.find_element(By.ID, "current-vm-name").click()
     # 6 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
     # 7 | click | css=.exercise-page |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 8 | click | css=#btnEndExercise > span:nth-child(1) |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.find_element(By.CSS_SELECTOR, "#btnEndExercise > span:nth-child(1)").click()
     # 9 | click | id=btnConfirmEndExercise |  | 
-    functions.promptUser()
-    print(return)
+    userPrompt = functions.promptUser()
+    print(userPrompt)
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
