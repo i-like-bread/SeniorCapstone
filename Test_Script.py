@@ -1,6 +1,6 @@
-import Enhanced_Script
+import enhanced
 
-testClass = Enhanced_Script.TestCYRINTest()
+testClass = enhanced.TestCYRINTest()
 testClass.setup_method("")
 testClass.test_cYRINTest()
 testClass.teardown_method("")
