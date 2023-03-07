@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import re   # regular expressions
+import re
 
 golden_file_name = "golden.py"
 enhanced_file_name = "enhanced.py"
@@ -12,7 +12,7 @@ with open(golden_file_name, 'r') as gf:
 ## Append a special end-of-file line to this list of lines
 eof_line = "### End of file ###"
 lines.append(eof_line)
-        
+
 # For each line in golden file that begins with "# number |", add below it
 # a call to function prompt_user
 comment_pattern = '^\s*#\s*\d+\s+\|' # from start of line (^) look for zero
@@ -47,7 +47,31 @@ while lines[curr_line_num] != eof_line:
         curr_line_num += 1  # since we added one line
 
     # move to next line
-    curr_line_num += 1 
+    curr_line_num += 1  
+
+# find name of the test class and test method created by Selenium
+test_class_name = test_method_name = None
+curr_line_num = 0
+while test_class_name == None or test_method_name == None:
+    if re.match("^\s*class\s+", lines[curr_line_num]) != None: 
+        # Found line that starts with "class ". Get the second part of the line
+        # which will have the name of the class
+        test_class_name = lines[curr_line_num].split()[1]
+
+        # Get rid of the "():" that is appended to the class name
+        test_class_name = test_class_name.replace("():", "")
+        print("Test class = ", test_class_name)
+
+    if re.match("^\s*def\s*test_", lines[curr_line_num]) != None:
+        # Found line that starts "def test_".  Get the second part of the line
+        # which will have the name of the method
+        test_method_name = lines[curr_line_num].split()[1]
+
+        # Get rid of the "(self):" that is appended to the method name
+        test_method_name = test_method_name.replace("(self):", "") 
+        print("Test method = ", test_method_name)
+
+    curr_line_num += 1
         
 # done inserting lines.  Write all lines to enhanced file
 with open(enhanced_file_name, 'w') as ef:
