@@ -83,6 +83,12 @@ while test_class_name == None or test_method_name == None:
         print("Test method = ", test_method_name)
 
     curr_line_num += 1
+
+# inserts calls to run the enhanced file in memory, that are then written in the new enhanced file
+lines.insert(len(lines)-1, "\ntestClass = " + test_class_name + "()")
+lines.insert(len(lines)-1, 'testClass.setup_method("")')
+lines.insert(len(lines)-1, "testClass." + test_method_name + "()")
+lines.insert(len(lines)-1, 'testClass.teardown_method("")')
         
 # done inserting lines.  Write all lines to enhanced file
 with open(enhanced_file_name, 'w') as ef:

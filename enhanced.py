@@ -67,3 +67,8 @@ class TestCYRINTest():
     userPrompt = functions.promptUser()
     print(userPrompt)
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
+
+testClass = TestCYRINTest()
+testClass.setup_method("")
+testClass.test_cYRINTest()
+testClass.teardown_method("")
