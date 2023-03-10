@@ -1,5 +1,5 @@
 import pyautogui
-import pynput
+#import pynput
 import keyboard
 import time
 
@@ -9,7 +9,7 @@ import time
 def promptUser():
     key = keyboard.read_key()
     if(key == 'c'):
-        print("\n'Enter' was pressed: Continuing")
+        print("\n'c' was pressed: Continuing")
         time.sleep(1)
     elif(key == 'w'):
         print("\n'w' was pressed: Waiting")
@@ -23,6 +23,15 @@ def promptUser():
     else:
         print("Try Again")
         promptUser()
+
+"""
+    key = keyboard.read_hotkey()
+    keyboard.add_hotkey('f1', lambda: print("\n'f1' was pressed: Continuing"))
+    keyboard.add_hotkey('f2', waitInput)
+    keyboard.add_hotkey('f3', mouseClickInput())
+    keyboard.add_hotkey('f4', lambda: keyboardInput)
+"""
+    
 
 
 
