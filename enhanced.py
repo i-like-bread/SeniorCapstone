@@ -32,40 +32,31 @@ class TestCYRINTest():
     # Test name: CYRINTest
     # Step # | name | target | value | comment
     # 1 | open | /mod/cyrin/view.php?id=166 |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=166")
     # 2 | setWindowSize | 1552x840 |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.set_window_size(1552, 840)
     # 3 | selectFrame | index=0 |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.switch_to.frame(0)
     # 4 | click | name=control |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.find_element(By.NAME, "control").click()
     # 5 | click | id=current-vm-name |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.find_element(By.ID, "current-vm-name").click()
     # 6 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
     # 7 | click | css=.exercise-page |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 8 | click | css=#btnEndExercise > span:nth-child(1) |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.find_element(By.CSS_SELECTOR, "#btnEndExercise > span:nth-child(1)").click()
     # 9 | click | id=btnConfirmEndExercise |  | 
-    userPrompt = functions.promptUser()
-    print(userPrompt)
+    print(functions.promptUser())
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
 
 testClass = TestCYRINTest()

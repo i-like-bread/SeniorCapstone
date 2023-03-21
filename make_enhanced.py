@@ -23,8 +23,7 @@ comment_pattern = '^\s*#\s*\d+\s+\|' # from start of line (^) look for zero
 # Look for lines that match the comment_pattern.
 # If a match is found, insert call to function prompt_user between this
 # line and the next
-cmd_to_insert = "userPrompt = functions.promptUser()"  # the command to be inserted
-prnt_to_insert = "print(userPrompt)" # the print command following the promptUser call
+cmd_to_insert = "print(functions.promptUser())" # the print command following the promptUser call
 curr_line_num = 0  # current line number (start at top of file)
 import_functions = "import functions" # added an import for the functions file
 lines.insert(1, import_functions)  # inserted the import at the top of the enhanced file
@@ -48,14 +47,6 @@ while lines[curr_line_num] != eof_line:
         # insert line after current line
         lines.insert(curr_line_num+1, line_to_insert)
         curr_line_num += 1  # since we added one line
-        
-        # doing the same for the print command as was done with the promptUser command
-        total_line_len = num_spaces + len(prnt_to_insert)
-        line_to_insert = prnt_to_insert.rjust(total_line_len, ' ')
-        
-        # insert line after current line
-        lines.insert(curr_line_num+1, line_to_insert)
-        curr_line_num += 1 # since we added one line
 
     # move to next line
     curr_line_num += 1 
