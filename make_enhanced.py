@@ -20,13 +20,18 @@ comment_pattern = '^\s*#\s*\d+\s+\|' # from start of line (^) look for zero
                                      # zero or more spaces, one or more digits,
                                      # zero or more spaces, and |
 
+create_list = "user_responses = list()" # adds a line to create a list before the start of the ide code
+lines.insert(20, create_list)
+
 # Look for lines that match the comment_pattern.
 # If a match is found, insert call to function prompt_user between this
 # line and the next
-cmd_to_insert = "print(functions.promptUser())" # the print command following the promptUser call
+cmd_to_insert = "print(functions.promptUser())" # line to print the result of what the user inputs
 curr_line_num = 0  # current line number (start at top of file)
 import_functions = "import functions" # added an import for the functions file
+import_something = "from inspect import currentframe, getframeinfo" # Import for the file you suggested
 lines.insert(1, import_functions)  # inserted the import at the top of the enhanced file
+lines.insert(1, import_something)
 while lines[curr_line_num] != eof_line:
     curr_line = lines[curr_line_num]  # current line we are working with
     print(curr_line)
