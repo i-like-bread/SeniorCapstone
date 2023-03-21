@@ -1,5 +1,5 @@
 import pyautogui
-import pynput
+#import pynput
 import keyboard
 import time
 
@@ -9,20 +9,31 @@ import time
 def promptUser():
     key = keyboard.read_key()
     if(key == 'c'):
-        print("\n'Enter' was pressed: Continuing")
+        print("\n'c' was pressed: Continuing")
         time.sleep(1)
+        return "Continue"
     elif(key == 'w'):
         print("\n'w' was pressed: Waiting")
-        waitInput()
+        return waitInput()
     elif(key == 'm'):
         print("\n'm' was pressed: MouseClick\nPress Enter to get MouseClick Coords")
-        mouseClickInput()
+        return mouseClickInput()
     elif(key == 'k'):
         print("\n'k' was pressed: KeyboardInput")
-        keyboardInput()
+        return keyboardInput()
     else:
         print("Try Again")
         promptUser()
+        
+
+"""
+    key = keyboard.read_hotkey()
+    keyboard.add_hotkey('f1', lambda: print("\n'f1' was pressed: Continuing"))
+    keyboard.add_hotkey('f2', waitInput)
+    keyboard.add_hotkey('f3', mouseClickInput())
+    keyboard.add_hotkey('f4', lambda: keyboardInput)
+"""
+    
 
 
 
@@ -33,6 +44,7 @@ def waitInput():
     waitTuple = ("Wait", waitTime)
     print(waitTuple)
     time.sleep(1)
+    return waitTuple
 
 
 
@@ -47,8 +59,11 @@ def mouseClickInput():
         mouseClickTuple = ("MouseClick", coords)
         print(mouseClickTuple)
         time.sleep(1)
+        return mouseClickTuple
     else:
         mouseClickInput()
+        return "fml"
+        
 
 
 
@@ -57,3 +72,4 @@ def keyboardInput():
     keyboardInputTuple = ("KeyboardInput", keys)
     print(keyboardInputTuple)
     time.sleep(1)
+    return keyboardInputTuple
