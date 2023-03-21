@@ -26,7 +26,7 @@ lines.insert(20, create_list)
 # Look for lines that match the comment_pattern.
 # If a match is found, insert call to function prompt_user between this
 # line and the next
-cmd_to_insert = "print(functions.promptUser())" # line to print the result of what the user inputs
+cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))" # adds a tuple with the line number and the user response to the list
 curr_line_num = 0  # current line number (start at top of file)
 import_functions = "import functions" # added an import for the functions file
 import_something = "from inspect import currentframe, getframeinfo" # Import for the file you suggested
