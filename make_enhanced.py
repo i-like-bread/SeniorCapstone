@@ -15,10 +15,13 @@ lines.append(eof_line)
         
 # For each line in golden file that begins with "# number |", add below it
 # a call to function prompt_user
-comment_pattern = '^\s*#\s*\d+\s+\|' # from start of line (^) look for zero
+comment_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of line (^) look for zero
                                      # or more spaces (\s*) followed by #,
                                      # zero or more spaces, one or more digits,
-                                     # zero or more spaces, and |
+                                     # zero or more spaces, |,
+                                     # zero or more spaces, zero or more characters,
+                                     # zero or more spaces, |,
+                                     # zero or more spaces, and then "css=canvas"
 
 create_list = "user_responses = list()" # adds a line to create a list before the start of the ide code
 lines.insert(15, create_list)

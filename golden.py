@@ -48,11 +48,13 @@ class TestGolden2():
     # 3 | click | id=username |  | 
     self.driver.find_element(By.ID, "username").click()
     # 4 | type | id=username |  | 
-    self.driver.find_element(By.ID, "username").send_keys("")
+    username = input("Input Username: ")
+    self.driver.find_element(By.ID, "username").send_keys(username)
     # 5 | click | id=password |  | 
     self.driver.find_element(By.ID, "password").click()
     # 6 | type | id=password |  | 
-    self.driver.find_element(By.ID, "password").send_keys("")
+    password = input("Input Password: ")
+    self.driver.find_element(By.ID, "password").send_keys(password)
     # 7 | click | id=loginbtn |  | 
     self.driver.find_element(By.ID, "loginbtn").click()
     # 8 | click | css=#course-info-container-37-5 .aalink > .text-truncate |  | 

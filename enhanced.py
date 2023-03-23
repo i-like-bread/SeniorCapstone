@@ -45,43 +45,32 @@ class TestGolden2():
     # Test name: Golden2
     # Step # | name | target | value | comment
     # 1 | open | /login/index.php |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.get("https://cyrin.atcorp.com/login/index.php")
     # 2 | setWindowSize | 2576x1416 |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.set_window_size(2576, 1416)
     # 3 | click | id=username |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.ID, "username").click()
     # 4 | type | id=username |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
-    self.driver.find_element(By.ID, "username").send_keys("")
+    username = input("Input Username: ")
+    self.driver.find_element(By.ID, "username").send_keys(username)
     # 5 | click | id=password |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.ID, "password").click()
     # 6 | type | id=password |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
-    self.driver.find_element(By.ID, "password").send_keys("")
+    password = input("Input Password: ")
+    self.driver.find_element(By.ID, "password").send_keys(password)
     # 7 | click | id=loginbtn |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.ID, "loginbtn").click()
     # 8 | click | css=#course-info-container-37-5 .aalink > .text-truncate |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.CSS_SELECTOR, "#course-info-container-37-5 .aalink > .text-truncate").click()
     # 9 | click | css=.activity-btn:nth-child(1) |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.CSS_SELECTOR, ".activity-btn:nth-child(1)").click()
     # 10 | selectFrame | index=0 |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.switch_to.frame(0)
     # 11 | click | name=control |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.NAME, "control").click()
     # 12 | click | id=computersMenuButton |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.ID, "computersMenuButton").click()
     # 13 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
     # 14 | mouseDown | css=canvas |  | 
     user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
@@ -89,12 +78,10 @@ class TestGolden2():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
     # 15 | mouseUp | id=noVNC_mouse_capture_elem |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 16 | click | css=.exercise-page |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 17 | mouseDown | css=canvas |  | 
     user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
@@ -102,12 +89,10 @@ class TestGolden2():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
     # 18 | mouseUp | id=noVNC_mouse_capture_elem |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 19 | click | css=.exercise-page |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 20 | mouseDown | css=canvas |  | 
     user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
@@ -115,21 +100,19 @@ class TestGolden2():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
     # 21 | mouseUp | id=noVNC_mouse_capture_elem |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 22 | click | css=.exercise-page |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 23 | click | id=btnEndExercise |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.ID, "btnEndExercise").click()
     # 24 | click | id=btnConfirmEndExercise |  | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
 
 testClass = TestGolden2()
 testClass.setup_method("")
 testClass.test_golden2()
 testClass.teardown_method("")
+
+print(user_responses)
