@@ -16,6 +16,9 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 # Acknowledges clicks but doesn't acknowledge keyboard input
 
 user_responses = list()
+username = input("Input Username: ")
+password = input("Input Password: ")
+
 class TestGolden2():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
@@ -41,6 +44,7 @@ class TestGolden2():
   - Click end exercise button
   """
 
+
   def test_golden2(self):
     # Test name: Golden2
     # Step # | name | target | value | comment
@@ -51,12 +55,10 @@ class TestGolden2():
     # 3 | click | id=username |  | 
     self.driver.find_element(By.ID, "username").click()
     # 4 | type | id=username |  | 
-    username = input("Input Username: ")
     self.driver.find_element(By.ID, "username").send_keys(username)
     # 5 | click | id=password |  | 
     self.driver.find_element(By.ID, "password").click()
     # 6 | type | id=password |  | 
-    password = input("Input Password: ")
     self.driver.find_element(By.ID, "password").send_keys(password)
     # 7 | click | id=loginbtn |  | 
     self.driver.find_element(By.ID, "loginbtn").click()
@@ -114,5 +116,3 @@ testClass = TestGolden2()
 testClass.setup_method("")
 testClass.test_golden2()
 testClass.teardown_method("")
-
-print(user_responses)
