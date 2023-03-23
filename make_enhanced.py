@@ -21,7 +21,7 @@ comment_pattern = '^\s*#\s*\d+\s+\|' # from start of line (^) look for zero
                                      # zero or more spaces, and |
 
 create_list = "user_responses = list()" # adds a line to create a list before the start of the ide code
-lines.insert(20, create_list)
+lines.insert(15, create_list)
 
 # Look for lines that match the comment_pattern.
 # If a match is found, insert call to function prompt_user between this
