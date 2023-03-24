@@ -23,7 +23,7 @@ def promptUser():
         return keyboardInput()
     else:
         print("Try Again")
-        promptUser()
+        return promptUser()
         
 
 """
@@ -61,8 +61,7 @@ def mouseClickInput():
         time.sleep(1)
         return mouseClickTuple
     else:
-        mouseClickInput()
-        return "fml"
+        return mouseClickInput()
         
 
 
