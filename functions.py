@@ -26,16 +26,6 @@ def promptUser():
         return promptUser()
         
 
-"""
-    key = keyboard.read_hotkey()
-    keyboard.add_hotkey('f1', lambda: print("\n'f1' was pressed: Continuing"))
-    keyboard.add_hotkey('f2', waitInput)
-    keyboard.add_hotkey('f3', mouseClickInput())
-    keyboard.add_hotkey('f4', lambda: keyboardInput)
-"""
-    
-
-
 
 #ToDo: Allow input when not in console (eg. like keyboard input); maybe just call keyboardInput?
 #wait for specified amount of time
