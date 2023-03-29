@@ -7,7 +7,7 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -47,6 +47,7 @@ class TestIejnrkejnrvlkjer():
     # 9 | selectFrame | index=0 | 
     self.driver.switch_to.frame(0)
     # 10 | click | name=control | 
+    WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.NAME, "control")))
     self.driver.find_element(By.NAME, "control").click()
     # 11 | click | id=computersMenuButton | 
     self.driver.find_element(By.ID, "computersMenuButton").click()
