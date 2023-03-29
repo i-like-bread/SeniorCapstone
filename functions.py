@@ -11,21 +11,20 @@ def promptUser():
     if(key == 'c'):
         print("\n'c' was pressed: Continuing")
         time.sleep(1)
+        return "Continue"
     elif(key == 'w'):
         print("\n'w' was pressed: Waiting")
-        waitInput()
-        time.sleep(1)
+        return waitInput()
     elif(key == 'm'):
         print("\n'm' was pressed: MouseClick\nPress Enter to get MouseClick Coords")
-        mouseClickInput()
-        time.sleep(1)
+        return mouseClickInput()
     elif(key == 'k'):
         print("\n'k' was pressed: KeyboardInput")
-        keyboardInput()
-        time.sleep(1)
+        return keyboardInput()
     else:
-        promptUser()
-        time.sleep(1)
+        print("Try Again")
+        return promptUser()
+        
 
 """
     key = keyboard.read_hotkey()
@@ -43,6 +42,8 @@ def promptUser():
 def waitInput():
     waitTime = input("Enter amount of time to wait (Enter to finish): ")
     waitTuple = ("Wait", waitTime)
+    print(waitTuple)
+    time.sleep(1)
     return waitTuple
 
 
@@ -56,13 +57,18 @@ def mouseClickInput():
         #pass coords to print
         coords = tuple((mousePos.x, mousePos.y))
         mouseClickTuple = ("MouseClick", coords)
+        print(mouseClickTuple)
+        time.sleep(1)
         return mouseClickTuple
     else:
-        mouseClickInput()
+        return mouseClickInput()
+        
 
 
 
 def keyboardInput():
     keys = input("Enter keys/text to input (Enter to finish): ")
     keyboardInputTuple = ("KeyboardInput", keys)
+    print(keyboardInputTuple)
+    time.sleep(1)
     return keyboardInputTuple

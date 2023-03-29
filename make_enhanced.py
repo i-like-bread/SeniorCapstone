@@ -2,7 +2,7 @@
 
 import re   # regular expressions
 
-golden_file_name = "golden.py"
+golden_file_name = "golden2.py"
 enhanced_file_name = "enhanced.py"
 
 # Read golden file into memory as a list of lines
@@ -15,19 +15,26 @@ lines.append(eof_line)
         
 # For each line in golden file that begins with "# number |", add below it
 # a call to function prompt_user
-comment_pattern = '^\s*#\s*\d+\s+\|' # from start of line (^) look for zero
+comment_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of line (^) look for zero
                                      # or more spaces (\s*) followed by #,
                                      # zero or more spaces, one or more digits,
-                                     # zero or more spaces, and |
+                                     # zero or more spaces, |,
+                                     # zero or more spaces, zero or more characters,
+                                     # zero or more spaces, |,
+                                     # zero or more spaces, and then "css=canvas"
+
+create_list = "user_responses = list()" # adds a line to create a list before the start of the ide code
+lines.insert(15, create_list)
 
 # Look for lines that match the comment_pattern.
 # If a match is found, insert call to function prompt_user between this
 # line and the next
-cmd_to_insert = "userPrompt = functions.promptUser()"  # the command to be inserted
-prnt_to_insert = "print(userPrompt)" # the print command following the promptUser call
+cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))" # adds a tuple with the line number and the user response to the list
 curr_line_num = 0  # current line number (start at top of file)
 import_functions = "import functions" # added an import for the functions file
+import_something = "from inspect import currentframe, getframeinfo" # Import for the file you suggested
 lines.insert(1, import_functions)  # inserted the import at the top of the enhanced file
+lines.insert(1, import_something)
 while lines[curr_line_num] != eof_line:
     curr_line = lines[curr_line_num]  # current line we are working with
     print(curr_line)
@@ -48,14 +55,6 @@ while lines[curr_line_num] != eof_line:
         # insert line after current line
         lines.insert(curr_line_num+1, line_to_insert)
         curr_line_num += 1  # since we added one line
-        
-        # doing the same for the print command as was done with the promptUser command
-        total_line_len = num_spaces + len(prnt_to_insert)
-        line_to_insert = prnt_to_insert.rjust(total_line_len, ' ')
-        
-        # insert line after current line
-        lines.insert(curr_line_num+1, line_to_insert)
-        curr_line_num += 1 # since we added one line
 
     # move to next line
     curr_line_num += 1 
