@@ -15,8 +15,8 @@ lines.append(eof_line)
         
 # For each line in golden file that begins with "# number |", add below it
 # a call to function prompt_user
-comment_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of line (^) look for zero
-                                     # or more spaces (\s*) followed by #,
+comment_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of line (^) look for
+                                     # zero or more spaces (\s*) followed by #,
                                      # zero or more spaces, one or more digits,
                                      # zero or more spaces, |,
                                      # zero or more spaces, zero or more characters,
@@ -35,6 +35,7 @@ import_functions = "import functions" # added an import for the functions file
 import_something = "from inspect import currentframe, getframeinfo" # Import for the file you suggested
 lines.insert(1, import_functions)  # inserted the import at the top of the enhanced file
 lines.insert(1, import_something)
+checkForFirstCanvas = 0
 while lines[curr_line_num] != eof_line:
     curr_line = lines[curr_line_num]  # current line we are working with
     print(curr_line)
@@ -42,20 +43,45 @@ while lines[curr_line_num] != eof_line:
     match = re.match(comment_pattern, curr_line)
     if match != None:
         # Found a Selenium comment.  Insert call to prompt_user after this line
-        # Indentation of line to be added must match that of comment.
-        num_spaces = len(curr_line) - len(curr_line.lstrip()) 
+        if checkForFirstCanvas == 0:
+            checkForFirstCanvas = 1
+            # adjust for spacing
+            num_spaces = len(curr_line) - len(curr_line.lstrip())
+            total_line_len = num_spaces + len(cmd_to_insert)
+            # add in the canvas wait
+            line_to_insert = cmd_to_insert.rjust(total_line_len, 'try:')
+            lines.insert(curr_line_num, line_to_insert)
+            curr_line_num+=1
+            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, 'wait = WebDriverWait(self.driver, 180)')
+            lines.insert(curr_line_num, line_to_insert)
+            curr_line_num+=1
+            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, "wait.until(expected_conditions.element_to_be_clickable((By.NAME, 'canvas')))")
+            lines.insert(curr_line_num, line_to_insert)
+            curr_line_num+=1
+            line_to_insert = cmd_to_insert.rjust(total_line_len, 'except Exception as e:')
+            lines.insert(curr_line_num, line_to_insert)
+            curr_line_num+=1
+            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, 'print(e)')
+            lines.insert(curr_line_num, line_to_insert)
+            curr_line_num+=1
+            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, 'self.driver.quit()')
+            lines.insert(curr_line_num, line_to_insert)
+            curr_line_num+=1
+        else:
+            # Indentation of line to be added must match that of comment.
+            num_spaces = len(curr_line) - len(curr_line.lstrip())
 
-        # Form the line to write with num_spaces in front of the command to
-        # insert.  To do this find the total length of the line to be inserted
-        # (num of spaces + length of the command), and write the command to a
-        # string with right justification
-        total_line_len = num_spaces + len(cmd_to_insert)
-        line_to_insert = cmd_to_insert.rjust(total_line_len, ' ')
+            # Form the line to write with num_spaces in front of the command to
+            # insert.  To do this find the total length of the line to be inserted
+            # (num of spaces + length of the command), and write the command to a
+            # string with right justification
+            total_line_len = num_spaces + len(cmd_to_insert)
+            line_to_insert = cmd_to_insert.rjust(total_line_len, ' ')
 
-        # insert line after current line
-        lines.insert(curr_line_num+1, line_to_insert)
-        curr_line_num += 1  # since we added one line
-
+            # insert line after current line
+            lines.insert(curr_line_num+1, line_to_insert)
+            curr_line_num += 1  # since we added one line
+    
     # move to next line
     curr_line_num += 1 
         
