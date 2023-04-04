@@ -1,8 +1,8 @@
 import pyautogui
-#import pynput
+import pynput
 import keyboard
 import time
-
+import re
 
 
 #listen for keyboard input from user: enter, w, m, or k
@@ -24,18 +24,16 @@ def promptUser():
     else:
         print("Try Again")
         return promptUser()
-        
 
 
 #ToDo: Allow input when not in console (eg. like keyboard input); maybe just call keyboardInput?
 #wait for specified amount of time
 def waitInput():
     waitTime = input("Enter amount of time to wait (Enter to finish): ")
-    waitTuple = ("Wait", waitTime)
+    waitTuple = ("Wait", (waitTime))
     print(waitTuple)
     time.sleep(1)
     return waitTuple
-
 
 
 #get MouseClick coords and click
@@ -54,11 +52,23 @@ def mouseClickInput():
         return mouseClickInput()
         
 
-
-
 def keyboardInput():
     keys = input("Enter keys/text to input (Enter to finish): ")
     keyboardInputTuple = ("KeyboardInput", keys)
     print(keyboardInputTuple)
     time.sleep(1)
     return keyboardInputTuple
+
+testValue = ('Wait', (5))
+
+def performAction():
+
+    if(testValue[0] == 'MouseClick'):
+        pyautogui.moveTo(testValue[1])
+        pyautogui.rightClick()
+    elif(testValue[0] == 'KeyboardInput'):
+        "Does some stuff"
+    elif(testValue[0] == 'Wait'):
+        time.sleep(testValue[1])
+
+performAction()

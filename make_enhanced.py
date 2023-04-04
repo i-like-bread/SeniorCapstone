@@ -2,7 +2,7 @@
 
 import re   # regular expressions
 
-golden_file_name = "golden2.py"
+golden_file_name = "golden.py"
 enhanced_file_name = "enhanced.py"
 
 # Read golden file into memory as a list of lines
@@ -21,10 +21,17 @@ comment_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of lin
                                      # zero or more spaces, |,
                                      # zero or more spaces, zero or more characters,
                                      # zero or more spaces, |,
-                                     # zero or more spaces, and then "css=canvas"
+                                     # zero or more spaces, and then "css=canvas
+lab_start_button = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*name=control' # regex to search for the line before the lab actually starts
+
+computer_select_id = '    # 11 | click | id=computersMenuButton | ' # regex to search for the next action after the lab 
+                                                                    # has been actually started
 
 create_list = "user_responses = list()" # adds a line to create a list before the start of the ide code
 lines.insert(15, create_list)
+
+# Add a maximum wait time for element_to_be_clickable
+max_wait = "WebDriverWait(self.driver, 120)"
 
 # Look for lines that match the comment_pattern.
 # If a match is found, insert call to function prompt_user between this
@@ -33,6 +40,8 @@ cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, fun
 curr_line_num = 0  # current line number (start at top of file)
 import_functions = "import functions" # added an import for the functions file
 import_something = "from inspect import currentframe, getframeinfo" # Import for the file you suggested
+lab_start_wait = '.until(EC.element_to_be_clickable((By.NAME, "control")))'
+canvas_wait = '.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "canvas")))'
 lines.insert(1, import_functions)  # inserted the import at the top of the enhanced file
 lines.insert(1, import_something)
 while lines[curr_line_num] != eof_line:
@@ -40,6 +49,7 @@ while lines[curr_line_num] != eof_line:
     print(curr_line)
     # does line match Selenium comment line?
     match = re.match(comment_pattern, curr_line)
+    lab_start = re.match(lab_start_button, curr_line)
     if match != None:
         # Found a Selenium comment.  Insert call to prompt_user after this line
         # Indentation of line to be added must match that of comment.
@@ -55,6 +65,13 @@ while lines[curr_line_num] != eof_line:
         # insert line after current line
         lines.insert(curr_line_num+1, line_to_insert)
         curr_line_num += 1  # since we added one line
+    elif lab_start != None:
+        new_line = max_wait + lab_start_wait
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
 
     # move to next line
     curr_line_num += 1 
