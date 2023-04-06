@@ -14,7 +14,7 @@ from getpass import getpass
 username = input("Enter Username: ")
 password = getpass()
 
-class TestIejnrkejnrvlkjer():
+class TestGolden3():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -22,16 +22,16 @@ class TestIejnrkejnrvlkjer():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_iejnrkejnrvlkjer(self):
-    # Test name: iejnrkejnrvlkjer
+  def test_golden3(self):
+    # Test name: golden3
     # Step # | name | target | value
     # 1 | open | /login/index.php | 
     self.driver.get("https://cyrin.atcorp.com/course/view.php?id=37")
-    # 2 | setWindowSize | 2576x1416 | 
-    self.driver.set_window_size(2576, 1416)
+    # 2 | setWindowSize | 1552x840 | 
+    self.driver.set_window_size(1552, 840)
     # 3 | click | id=username | 
     self.driver.find_element(By.ID, "username").click()
-    # 4 | type | id=username | 
+    # 4 | type | id=username |
     self.driver.find_element(By.ID, "username").send_keys(username)
     # 5 | click | id=password | 
     self.driver.find_element(By.ID, "password").click()
@@ -45,41 +45,43 @@ class TestIejnrkejnrvlkjer():
     self.driver.switch_to.frame(0)
     # 10 | click | name=control | 
     self.driver.find_element(By.NAME, "control").click()
-    # 11 | click | id=computersMenuButton | 
+    # 11 | click | css=.no-fullscreen:nth-child(1) | 
+    self.driver.find_element(By.CSS_SELECTOR, ".no-fullscreen:nth-child(1)").click()
+    # 12 | click | id=computersMenuButton | 
     self.driver.find_element(By.ID, "computersMenuButton").click()
-    # 12 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa | 
+    # 13 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa | 
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
-    # 13 | mouseDown | css=canvas | 
+    # 14 | mouseDown | css=canvas | 
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
-    # 14 | mouseUp | id=noVNC_mouse_capture_elem | 
+    # 15 | mouseUp | id=noVNC_mouse_capture_elem | 
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
-    # 15 | click | css=.exercise-page | 
+    # 16 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 16 | mouseDown | css=canvas | 
+    # 17 | mouseDown | css=canvas | 
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
-    # 17 | mouseUp | id=noVNC_mouse_capture_elem | 
+    # 18 | mouseUp | id=noVNC_mouse_capture_elem | 
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
-    # 18 | click | css=.exercise-page | 
+    # 19 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 19 | mouseDown | css=canvas | 
+    # 20 | mouseDown | css=canvas | 
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
-    # 20 | mouseUp | id=noVNC_mouse_capture_elem | 
+    # 21 | mouseUp | id=noVNC_mouse_capture_elem | 
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
-    # 21 | click | css=.exercise-page | 
+    # 22 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 22 | click | id=btnEndExercise | 
+    # 23 | click | id=btnEndExercise | 
     self.driver.find_element(By.ID, "btnEndExercise").click()
-    # 23 | click | id=btnConfirmEndExercise | 
+    # 24 | click | id=btnConfirmEndExercise | 
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()

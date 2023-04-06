@@ -22,10 +22,13 @@ comment_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of lin
                                      # zero or more spaces, zero or more characters,
                                      # zero or more spaces, |,
                                      # zero or more spaces, and then "css=canvas
-lab_start_button = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*name=control' # regex to search for the line before the lab actually starts
 
-computer_select_id = '    # 11 | click | id=computersMenuButton | ' # regex to search for the next action after the lab 
-                                                                    # has been actually started
+# regex to search for the line before the lab actually starts
+lab_start_button = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*name=control'
+
+# regex to search for the line before the lab exercise is closed.
+lab_end_confirm = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*id=btnConfirmEndExercise'  
+
 
 create_list = "user_responses = list()" # adds a line to create a list before the start of the ide code
 lines.insert(15, create_list)
@@ -36,105 +39,160 @@ lines.insert(15, create_list)
 cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))" # adds a tuple with the line number and the user response to the list
 curr_line_num = 0  # current line number (start at top of file)
 import_functions = "import functions" # added an import for the functions file
-import_something = "from inspect import currentframe, getframeinfo" # Import for the file you suggested
+line_num_import = "from inspect import currentframe, getframeinfo" # Import for the file you suggested
 lab_start_wait = 'WebDriverWait(self.driver, 45).until(expected_conditions.element_to_be_clickable((By.NAME, "control")))'
 canvas_wait = 'WebDriverWait(self.driver, 180).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, "canvas")))'
+lab_end_wait = 'WebDriverWait(self.driver, 45).until(expected_conditions.element_to_be_clickable((By.ID, "btnConfirmEndExercise")))'
 lines.insert(1, import_functions)  # inserted the import at the top of the enhanced file
-lines.insert(1, import_something)
-checkForFirstCanvas = 0
+lines.insert(1, line_num_import)
 while lines[curr_line_num] != eof_line:
     curr_line = lines[curr_line_num]  # current line we are working with
     print(curr_line)
     # does line match Selenium comment line?
     match = re.match(comment_pattern, curr_line)
     lab_start = re.match(lab_start_button, curr_line)
+    lab_end = re.match(lab_end_confirm, curr_line)
     if match != None:
         # Found a Selenium comment.  Insert call to prompt_user after this line
-        if checkForFirstCanvas == 0:
-            checkForFirstCanvas = 1
-            # adjust for spacing
-            num_spaces = len(curr_line) - len(curr_line.lstrip())
-            total_line_len = num_spaces + len(cmd_to_insert)
-            # add in the canvas wait
-            line_to_insert = cmd_to_insert.rjust(total_line_len, 'try:')
-            lines.insert(curr_line_num, line_to_insert)
-            curr_line_num+=1
-            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, 'wait = WebDriverWait(self.driver, 180)')
-            lines.insert(curr_line_num, line_to_insert)
-            curr_line_num+=1
-            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, "wait.until(expected_conditions.element_to_be_clickable((By.NAME, 'canvas')))")
-            lines.insert(curr_line_num, line_to_insert)
-            curr_line_num+=1
-            line_to_insert = cmd_to_insert.rjust(total_line_len, 'except Exception as e:')
-            lines.insert(curr_line_num, line_to_insert)
-            curr_line_num+=1
-            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, 'print(e)')
-            lines.insert(curr_line_num, line_to_insert)
-            curr_line_num+=1
-            line_to_insert = cmd_to_insert.rjust(total_line_len + total_line_len, 'self.driver.quit()')
-            lines.insert(curr_line_num, line_to_insert)
-            curr_line_num+=1
-        elif checkForFirstCanvas == 1:
-            # Indentation of line to be added must match that of comment.
-            num_spaces = len(curr_line) - len(curr_line.lstrip())
+        # Indentation of line to be added must match that of comment.
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        
+        # Form the line to write with num_spaces in front of the command to
+        # insert.  To do this find the total length of the line to be inserted
+        # (num of spaces + length of the command), and write the command to a
+        # string with right justification
+        total_line_len = num_spaces + len(cmd_to_insert)
+        line_to_insert = cmd_to_insert.rjust(total_line_len, ' ')
 
-            # Form the line to write with num_spaces in front of the command to
-            # insert.  To do this find the total length of the line to be inserted
-            # (num of spaces + length of the command), and write the command to a
-            # string with right justification
-            total_line_len = num_spaces + len(cmd_to_insert)
-            line_to_insert = cmd_to_insert.rjust(total_line_len, ' ')
+        # insert line after current line
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1  # since we added one line
 
-            # insert line after current line
-            lines.insert(curr_line_num+1, line_to_insert)
-            curr_line_num += 1  # since we added one line
+    elif lab_start != None:
+        # Add a try: statement
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len("try:")
+        line_to_insert = "try:".rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+            
+        # Adds a line that makes the script wait for the 'start lab' button to load
+        new_line = "  " + lab_start_wait
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Add an 'except' statement
+        new_line = "except Exception as e:"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Print the exception
+        new_line = "  print(e)"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Quit script after printing exception
+        new_line = "  self.driver.quit()"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
 
-        elif lab_start != None:
-            # Add a try: statement
-            num_spaces = len(curr_line) - len(curr_line.lstrip())
-            total_line_len = num_spaces + len("try:")
-            line_to_insert = "try:".rjust(total_line_len, ' ')
-            lines.insert(curr_line_num+1, line_to_insert)
-            curr_line_num += 1
+        # Start inserting the wait for the canvas to load
+        curr_line_num += 1
+        
+        # Add a try: statement
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len("try:")
+        line_to_insert = "try:".rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
             
-            # Adds a line that makes the script wait for the 'start lab' button to load
-            new_line = "  " + lab_start_wait
-            num_spaces = len(curr_line) - len(curr_line.lstrip())
-            total_line_len = num_spaces + len(new_line)
-            line_to_insert = (new_line).rjust(total_line_len, ' ')
-            lines.insert(curr_line_num+1, line_to_insert)
-            curr_line_num += 1
+        # Adds a line that makes the script wait for the 'start lab' button to load
+        new_line = "  " + canvas_wait
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Add an 'except' statement
+        new_line = "except Exception as e:"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Print the exception
+        new_line = "  print(e)"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Quit script after printing exception
+        new_line = "  self.driver.quit()"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+    elif lab_end != None:
+        #Add a try: statement
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len("try:")
+        line_to_insert = "try:".rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
             
-            # Add an 'except' statement
-            new_line = "except Exception as e:"
-            num_spaces = len(curr_line) - len(curr_line.lstrip())
-            total_line_len = num_spaces + len(new_line)
-            line_to_insert = (new_line).rjust(total_line_len, ' ')
-            lines.insert(curr_line_num+1, line_to_insert)
-            curr_line_num += 1
+        # Adds a line that makes the script wait for the 'start lab' button to load
+        new_line = "  " + lab_end_wait
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Add an 'except' statement
+        new_line = "except Exception as e:"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Print the exception
+        new_line = "  print(e)"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
+        
+        # Quit script after printing exception
+        new_line = "  self.driver.quit()"
+        num_spaces = len(curr_line) - len(curr_line.lstrip())
+        total_line_len = num_spaces + len(new_line)
+        line_to_insert = (new_line).rjust(total_line_len, ' ')
+        lines.insert(curr_line_num+1, line_to_insert)
+        curr_line_num += 1
             
-            # Print the exception
-            new_line = "  print(e)"
-            num_spaces = len(curr_line) - len(curr_line.lstrip())
-            total_line_len = num_spaces + len(new_line)
-            line_to_insert = (new_line).rjust(total_line_len, ' ')
-            lines.insert(curr_line_num+1, line_to_insert)
-            curr_line_num += 1
-            
-            # Quit script after printing exception
-            new_line = "  self.driver.quit()"
-            num_spaces = len(curr_line) - len(curr_line.lstrip())
-            total_line_len = num_spaces + len(new_line)
-            line_to_insert = (new_line).rjust(total_line_len, ' ')
-            lines.insert(curr_line_num+1, line_to_insert)
-            curr_line_num += 1
-
-            # insert line after current line
-            lines.insert(curr_line_num+1, line_to_insert)
-            curr_line_num += 1  # since we added one line
-    
-    # move to next line
-    curr_line_num += 1 
+    else:
+        curr_line_num += 1
+        
         
 # find name of the test class and test method created by Selenium
 test_class_name = test_method_name = None
