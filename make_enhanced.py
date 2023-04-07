@@ -15,7 +15,7 @@ lines.append(eof_line)
         
 # For each line in golden file that begins with "# number |", add below it
 # a call to function prompt_user
-comment_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of line (^) look for
+canvas_pattern = '^\s*#\s*\d+\s*\|\s*\w*\s*\|\s*css=canvas' # from start of line (^) look for
                                      # zero or more spaces (\s*) followed by #,
                                      # zero or more spaces, one or more digits,
                                      # zero or more spaces, |,
@@ -49,7 +49,7 @@ while lines[curr_line_num] != eof_line:
     curr_line = lines[curr_line_num]  # current line we are working with
     print(curr_line)
     # does line match Selenium comment line?
-    match = re.match(comment_pattern, curr_line)
+    match = re.match(canvas_pattern, curr_line)
     lab_start = re.match(lab_start_button, curr_line)
     lab_end = re.match(lab_end_confirm, curr_line)
     if match != None:
