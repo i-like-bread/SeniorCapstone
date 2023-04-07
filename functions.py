@@ -11,7 +11,8 @@ def promptUser():
     if(key == 'c'):
         print("\n'c' was pressed: Continuing")
         time.sleep(1)
-        return "Continue"
+        continueTuple = ("noop", ())
+        return continueTuple
     elif(key == 'w'):
         print("\n'w' was pressed: Waiting")
         return waitInput()
