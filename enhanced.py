@@ -2,6 +2,8 @@
 import pytest
 import time
 import json
+import sys
+import re
 import functions
 from inspect import currentframe, getframeinfo
 from selenium import webdriver
@@ -68,7 +70,7 @@ class TestGolden3():
     # 13 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa | 
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
     # 14 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.prompt_user()))
+    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -79,7 +81,7 @@ class TestGolden3():
     # 16 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 17 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.prompt_user()))
+    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -90,7 +92,7 @@ class TestGolden3():
     # 19 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 20 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.prompt_user()))
+    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -115,3 +117,31 @@ testClass = TestGolden3()
 testClass.setup_method("")
 testClass.test_golden3()
 testClass.teardown_method("")
+
+current_file = 'enhanced.py'
+new_file = 'test_script.py'
+
+with open(current_file, 'r') as gf:
+   lines = gf.read().splitlines()
+
+prompt_user_pattern = "^\s*user_responses\.append\(\(getframeinfo\(currentframe\(\)\)\.lineno, functions\.prompt_user\(\)\)\)" 
+line_num = 0
+for line_num, line in enumerate(lines):
+    while line_num < len(lines):
+        # Check for a line that contains prompt_user
+        match = re.match(prompt_user_pattern, lines[line_num])
+        if match != None:
+            for item_num, item in enumerate(user_responses):
+                # Check to make sure that the current line matches with a line from user_responses
+                if (line_num+1) == user_responses[item_num][0]:
+                    print(line_num)
+                    lines.insert(line_num, 'perform_action(' + user_responses[item_num][1] + ')')
+                    lines.pop(line_num)
+        else:
+            line_num += 1
+with open(new_file, 'w') as ef:
+    for line_num, line in enumerate(lines):
+        ef.write(line + "\n")
+
+sys.exit("Created file " + new_file)
+

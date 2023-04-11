@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from textwrap import dedent # to dedent the new code for test_script.py
 import sys
 import re   # regular expressions
 from make_enhanced_utils import make_wait_command
@@ -16,6 +17,8 @@ with open(golden_file_name, 'r') as gf:
 # before the selenium imports
 import_inspect = "from inspect import currentframe, getframeinfo"
 import_our_functions = "import functions"
+import_re = "import re"
+import_sys = "import sys"
 import_pattern = "^from\s+selenium"
 import_found = False
 for line_num, line in enumerate(lines):
@@ -25,6 +28,8 @@ for line_num, line in enumerate(lines):
         # this line and break out of loop
         lines.insert(line_num, import_inspect)
         lines.insert(line_num, import_our_functions)
+        lines.insert(line_num, import_re)
+        lines.insert(line_num, import_sys)
         import_found = True
         break
 if import_found == False:
@@ -133,7 +138,7 @@ for line_num, line in enumerate(lines):
 
 ## Add call to function.prompt_user before any action on canvas
 canvas_action_pattern = '^\s*\w+\s*=\s*self\.driver\.find_element\(By\.CSS_SELECTOR, "canvas"\)'
-cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, functions.prompt_user()))" # adds a tuple with the line number and the user response to the list
+cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))" # adds a tuple with the line number and the user response to the list
 line_num = 0 # current line number in lines being processed
 while line_num < len(lines):
     match = re.match(canvas_action_pattern, lines[line_num])
@@ -180,10 +185,50 @@ lines.insert(len(lines)+1, "\ntestClass = " + test_class_name + "()")
 lines.insert(len(lines)+1, 'testClass.setup_method("")')
 lines.insert(len(lines)+1, "testClass." + test_method_name + "()")
 lines.insert(len(lines)+1, 'testClass.teardown_method("")')
-        
+
+# add code to create test_script after everything else
+curr_line_num = len(lines)+1
+
+# Writing the code to create test_script.py in a multi-lined String
+test_script_code = dedent("""
+    current_file = 'enhanced.py'
+    new_file = 'test_script.py'
+    
+    with open(current_file, 'r') as gf:
+       lines = gf.read().splitlines()
+       
+    prompt_user_pattern = "^\s*user_responses\.append\(\(getframeinfo\(currentframe\(\)\)\.lineno, functions\.prompt_user\(\)\)\)" 
+    line_num = 0
+    for line_num, line in enumerate(lines):
+        while line_num < len(lines):
+            # Check for a line that contains prompt_user
+            match = re.match(prompt_user_pattern, lines[line_num])
+            if match != None:
+                for item_num, item in enumerate(user_responses):
+                    # Check to make sure that the current line matches with a line from user_responses
+                    if (line_num+1) == user_responses[item_num][0]:
+                        lines.insert(line_num, 'perform_action(' + user_responses[item_num][1] + ')')
+                        lines.pop(line_num-1)
+            else:
+                line_num += 1
+    with open(new_file, 'w') as ef:
+        for line_num, line in enumerate(lines):
+            ef.write(line + "\\n")
+            
+    sys.exit("Created file " + new_file)
+    """)
+
+# Add the new code for the test_script to the file in memory
+lines.insert((curr_line_num), test_script_code)
+
 # done inserting lines.  Write all lines to enhanced file
 with open(enhanced_file_name, 'w') as ef:
     for line_num, line in enumerate(lines):
         ef.write(line + '\n')
 
 sys.exit("Created file " + enhanced_file_name)
+
+# for each action collected in list user_responses:
+#   * go to line number of response (that line will have the call to prompt_user
+#   * replace line with perform_action(ACTION_FROM_USER_RESPONSES)
+#   * write contents of line array to file test_script.py
