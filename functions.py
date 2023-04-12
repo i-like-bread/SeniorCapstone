@@ -10,7 +10,6 @@ def promptUser():
     key = keyboard.read_key()
     if(key == 'c'):
         print("\n'c' was pressed: Continuing")
-        time.sleep(1)
         return "Continue"
     elif(key == 'w'):
         print("\n'w' was pressed: Waiting")
@@ -26,13 +25,11 @@ def promptUser():
         return promptUser()
 
 
-#ToDo: Allow input when not in console (eg. like keyboard input); maybe just call keyboardInput?
 #wait for specified amount of time
 def waitInput():
     waitTime = input("Enter amount of time to wait (Enter to finish): ")
-    waitTuple = ("Wait", (waitTime))
+    waitTuple = tuple(('Wait', waitTime))
     print(waitTuple)
-    time.sleep(1)
     return waitTuple
 
 
@@ -46,29 +43,34 @@ def mouseClickInput():
         coords = tuple((mousePos.x, mousePos.y))
         mouseClickTuple = ("MouseClick", coords)
         print(mouseClickTuple)
-        time.sleep(1)
         return mouseClickTuple
     else:
         return mouseClickInput()
         
 
 def keyboardInput():
-    keys = input("Enter keys/text to input (Enter to finish): ")
+    #reads the k key from user selection, is dead code
+    keyboard.read_key()
+    #records keys
+    keys = keyboard.record(until="esc")
     keyboardInputTuple = ("KeyboardInput", keys)
     print(keyboardInputTuple)
-    time.sleep(1)
+    #keyboard.play(keys)
     return keyboardInputTuple
 
-testValue = ('Wait', (5))
+
+testValue = promptUser()
 
 def performAction():
 
-    if(testValue[0] == 'MouseClick'):
+    if(testValue == 'Continue'):
+        return
+    elif(testValue[0] == 'MouseClick'):
         pyautogui.moveTo(testValue[1])
         pyautogui.rightClick()
     elif(testValue[0] == 'KeyboardInput'):
-        "Does some stuff"
+        keyboard.play(testValue[1])
     elif(testValue[0] == 'Wait'):
-        time.sleep(testValue[1])
+        time.sleep(int(testValue[1][0]))
 
 performAction()
