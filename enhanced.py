@@ -136,6 +136,7 @@ for line_num, line in enumerate(lines):
         if (line_num+1) == user_responses[item_num][0]:
           args = user_responses[item_num][1]
           action = args[0]
+          action = '"' + action + '"'
           arg1 = ""
           arg2 = ""
           match action:
@@ -152,7 +153,7 @@ for line_num, line in enumerate(lines):
               arg1 = str(x_coord)
               arg2 = str(y_coord)
               arg1 = arg1 + ", " + arg2
-          lines.insert(line_num, 'perform_action((' + action + ', (' + arg1 + ')))')
+          lines.insert(line_num, '    functions.performAction((' + action + ', (' + arg1 + ')))')
           lines.pop(line_num+1)
       break        
     else:
