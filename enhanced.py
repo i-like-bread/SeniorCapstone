@@ -122,23 +122,42 @@ current_file = 'enhanced.py'
 new_file = 'test_script.py'
 
 with open(current_file, 'r') as gf:
-   lines = gf.read().splitlines()
+  lines = gf.read().splitlines()
 
-prompt_user_pattern = "^\s*user_responses\.append\(\(getframeinfo\(currentframe\(\)\)\.lineno, functions\.prompt_user\(\)\)\)" 
+prompt_user_pattern = "^\s*user_responses\.append\(\(getframeinfo\(currentframe\(\)\)\.lineno, functions\.promptUser\(\)\)\)" 
 line_num = 0
 for line_num, line in enumerate(lines):
-    while line_num < len(lines):
-        # Check for a line that contains prompt_user
-        match = re.match(prompt_user_pattern, lines[line_num])
-        if match != None:
-            for item_num, item in enumerate(user_responses):
-                # Check to make sure that the current line matches with a line from user_responses
-                if (line_num+1) == user_responses[item_num][0]:
-                    print(line_num)
-                    lines.insert(line_num, 'perform_action(' + user_responses[item_num][1] + ')')
-                    lines.pop(line_num)
-        else:
-            line_num += 1
+  while line_num < len(lines):
+    # Check for a line that contains prompt_user
+    match = re.match(prompt_user_pattern, lines[line_num])
+    if match != None:
+      for item_num, item in enumerate(user_responses):
+        # Check to make sure that the current line matches with a line from user_responses
+        if (line_num+1) == user_responses[item_num][0]:
+          args = user_responses[item_num][1]
+          action = args[0]
+          arg1 = ""
+          arg2 = ""
+          match action:
+            case "noop":
+              arg1 = "()"
+            case "Wait":
+              arg1 = ''.join(map(str, args[1]))
+            case "KeyboardInput":
+              arg1 = args[1]
+            case "MouseClick":
+              action_args = args[1]
+              x_coord = action_args[0]
+              y_coord = action_args[1]
+              arg1 = str(x_coord)
+              arg2 = str(y_coord)
+              arg1 = arg1 + ", " + arg2
+          lines.insert(line_num, 'perform_action((' + action + ', (' + arg1 + ')))')
+          lines.pop(line_num+1)
+      break        
+    else:
+      line_num += 1
+
 with open(new_file, 'w') as ef:
     for line_num, line in enumerate(lines):
         ef.write(line + "\n")
