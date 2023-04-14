@@ -70,7 +70,7 @@ class TestGolden3():
     # 13 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa | 
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
     # 14 | mouseDown | css=canvas | 
-performAction((MouseClick, (78, 735)))
+    functions.performAction(("MouseClick", (95, 737)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -81,7 +81,7 @@ performAction((MouseClick, (78, 735)))
     # 16 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 17 | mouseDown | css=canvas | 
-performAction((MouseClick, (456, 452)))
+    functions.performAction(("MouseClick", (458, 449)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -92,7 +92,7 @@ performAction((MouseClick, (456, 452)))
     # 19 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 20 | mouseDown | css=canvas | 
-performAction((MouseClick, (1088, 413)))
+    functions.performAction(("MouseClick", (1084, 414)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -136,23 +136,24 @@ for line_num, line in enumerate(lines):
         if (line_num+1) == user_responses[item_num][0]:
           args = user_responses[item_num][1]
           action = args[0]
+          action = '"' + action + '"'
           arg1 = ""
           arg2 = ""
           match action:
-            case "noop":
+            case '"noop"':
               arg1 = "()"
-            case "Wait":
+            case '"Wait"':
               arg1 = ''.join(map(str, args[1]))
-            case "KeyboardInput":
+            case '"KeyboardInput"':
               arg1 = args[1]
-            case "MouseClick":
+            case '"MouseClick"':
               action_args = args[1]
               x_coord = action_args[0]
               y_coord = action_args[1]
               arg1 = str(x_coord)
               arg2 = str(y_coord)
               arg1 = arg1 + ", " + arg2
-          lines.insert(line_num, 'performAction((' + action + ', (' + arg1 + ')))')
+          lines.insert(line_num, '    functions.performAction((' + action + ', (' + arg1 + ')))')
           lines.pop(line_num+1)
       break        
     else:

@@ -73,4 +73,4 @@ def performAction():
     elif(testValue[0] == 'Wait'):
         time.sleep(int(testValue[1][0]))
 
-performAction()
+#performAction()

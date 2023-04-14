@@ -213,13 +213,13 @@ test_script_code = dedent("""
               arg1 = ""
               arg2 = ""
               match action:
-                case "noop":
+                case '"noop"':
                   arg1 = "()"
-                case "Wait":
+                case '"Wait"':
                   arg1 = ''.join(map(str, args[1]))
-                case "KeyboardInput":
+                case '"KeyboardInput"':
                   arg1 = args[1]
-                case "MouseClick":
+                case '"MouseClick"':
                   action_args = args[1]
                   x_coord = action_args[0]
                   y_coord = action_args[1]
