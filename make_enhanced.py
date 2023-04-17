@@ -172,6 +172,7 @@ while line_num < len(escript):
     if match != None:
         # found line with action on canvas.  Insert call to prompt_user after
         # this line
+        line = escript[line_num]
 
         # find indentation of current line (num spaces)
         num_spaces = len(line) - len(line.lstrip()) 
