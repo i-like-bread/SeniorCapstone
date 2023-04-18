@@ -1,12 +1,13 @@
 import pyautogui
-import pynput
+# import pynput
 import keyboard
 import time
-import re
+# import re
 
 
 #listen for keyboard input from user: enter, w, m, or k
-def promptUser():
+def prompt_user():
+    print("in prompt user")
     key = keyboard.read_key()
     if(key == 'c'):
         print("\n'c' was pressed: Continuing")
@@ -22,7 +23,7 @@ def promptUser():
         return keyboardInput()
     else:
         print("Try Again")
-        return promptUser()
+        return prompt_user()
 
 
 #wait for specified amount of time
@@ -59,18 +60,22 @@ def keyboardInput():
     return keyboardInputTuple
 
 
-testValue = promptUser()
+# testValue = prompt_user()
 
-def performAction():
+def perform_action(testValue):
 
-    if(testValue == 'Continue'):
+    if(testValue[0] == 'Continue'):
         return
     elif(testValue[0] == 'MouseClick'):
-        pyautogui.moveTo(testValue[1])
-        pyautogui.rightClick()
+        x = testValue[1][0]
+        y = testValue[1][1]
+        print(f"Moving mouse to {x},{y}")
+        pyautogui.moveTo(x, y)
+        time.sleep(3)
+        # pyautogui.rightClick()
     elif(testValue[0] == 'KeyboardInput'):
         keyboard.play(testValue[1])
     elif(testValue[0] == 'Wait'):
         time.sleep(int(testValue[1][0]))
 
-#performAction()
+#perform_action()
