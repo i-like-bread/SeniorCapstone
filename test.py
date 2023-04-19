@@ -44,13 +44,13 @@ class TestTestrecon():
     # 6 | selectFrame | index=0 | 
     self.driver.switch_to.frame(0)
     # 7 | click | name=control | 
-    try:
-        wait = WebDriverWait(self.driver, 120)
-        wait.until(expected_conditions.element_to_be_clickable((By.NAME, "control")))
-    except:
-        print('By.NAME, "control" did not become clickable')
-        self.driver.quit()
-    self.driver.find_element(By.NAME, "control").click()
+    #try:
+        #wait = WebDriverWait(self.driver, 120)
+        #wait.until(expected_conditions.element_to_be_clickable((By.NAME, "control")))
+    #except:
+        #print('By.NAME, "control" did not become clickable')
+        #self.driver.quit()
+    #self.driver.find_element(By.NAME, "control").click()
     try:
         wait = WebDriverWait(self.driver, 360)
         wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, "canvas")))
@@ -58,7 +58,7 @@ class TestTestrecon():
         print('By.CSS_SELECTOR, "canvas" did not become clickable')
         self.driver.quit()
     # 8 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
+    functions.perform_action(('MouseClick', (79, 700)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -69,7 +69,7 @@ class TestTestrecon():
     # 10 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 11 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
+    functions.perform_action(('KeyboardInput', '[KeyboardEvent(w down), KeyboardEvent(a down), KeyboardEvent(w up), KeyboardEvent(s down), KeyboardEvent(a up), KeyboardEvent(d down), KeyboardEvent(s up), KeyboardEvent(d up), KeyboardEvent(esc down)]'))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -86,26 +86,3 @@ testClass.setup_method("")
 testClass.test_testrecon()
 testClass.teardown_method("")
 
-### THE FOLLOWING LINES SHOULD NOT APPEAR IN TEST SCRIPT ###
-## Create test script by modifying the in-memory enhanced script
-for _, user_resp in enumerate(user_responses):
-    line_num = user_resp[0]
-    action = user_resp[1]
-    curr_line = escript[line_num]  # current line at line_num
-    replacement_line = f'functions.perform_action({action})'
-    # find indentation of current line
-    num_spaces = len(curr_line) - len(curr_line.lstrip())
-    total_line_len = num_spaces + len(replacement_line)
-    indented_replacement = replacement_line.rjust(total_line_len, ' ')
-    print(f'Replacing {line_num}: {curr_line} with {indented_replacement}')
-    # replace prompt_user line with perform_action line
-    escript[line_num] = indented_replacement
-
-# Write to test script file
-test_file_name = "test.py"
-with open(test_file_name, 'w') as tf:
-    for _, line in enumerate(escript):
-        if line != marker_line:
-            tf.write(line + '\n')
-        else:
-            break
