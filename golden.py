@@ -9,11 +9,12 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from getpass import getpass
 
 username = input("Enter Username: ")
-password = input("Enter Password: ")
+password = getpass()
 
-class TestGolden3():
+class TestTestrecon():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -21,66 +22,41 @@ class TestGolden3():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_golden3(self):
-    # Test name: golden3
+  def test_testrecon(self):
+    # Test name: test-recon
     # Step # | name | target | value
     # 1 | open | /login/index.php | 
-    self.driver.get("https://cyrin.atcorp.com/course/view.php?id=37")
-    # 2 | setWindowSize | 1552x840 | 
-    self.driver.set_window_size(1552, 840)
-    # 3 | click | id=username | 
-    self.driver.find_element(By.ID, "username").click()
-    # 4 | type | id=username |
+    self.driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=33")
+    # 2 | setWindowSize | 1920x1055 | 
+    self.driver.set_window_size(1920, 1055)
+    # 3 | type | id=username | username
     self.driver.find_element(By.ID, "username").send_keys(username)
-    # 5 | click | id=password | 
-    self.driver.find_element(By.ID, "password").click()
-    # 6 | type | id=password | 
+    # 4 | type | id=password | password
     self.driver.find_element(By.ID, "password").send_keys(password)
-    # 7 | click | id=loginbtn | 
+    # 5 | click | id=loginbtn | 
     self.driver.find_element(By.ID, "loginbtn").click()
-    # 8 | click | css=.activity-btn:nth-child(1) | 
-    self.driver.find_element(By.CSS_SELECTOR, ".activity-btn:nth-child(1)").click()
-    # 9 | selectFrame | index=0 | 
+    # 6 | selectFrame | index=0 | 
     self.driver.switch_to.frame(0)
-    # 10 | click | name=control | 
+    # 7 | click | name=control | 
     self.driver.find_element(By.NAME, "control").click()
-    # 11 | click | css=.no-fullscreen:nth-child(1) | 
-    self.driver.find_element(By.CSS_SELECTOR, ".no-fullscreen:nth-child(1)").click()
-    # 12 | click | id=computersMenuButton | 
-    self.driver.find_element(By.ID, "computersMenuButton").click()
-    # 13 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa | 
-    self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
-    # 14 | mouseDown | css=canvas | 
+    # 8 | mouseDown | css=canvas | 
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
-    # 15 | mouseUp | id=noVNC_mouse_capture_elem | 
+    # 9 | mouseUp | id=noVNC_mouse_capture_elem | 
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
-    # 16 | click | css=.exercise-page | 
+    # 10 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 17 | mouseDown | css=canvas | 
+    # 11 | mouseDown | css=canvas | 
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
-    # 18 | mouseUp | id=noVNC_mouse_capture_elem | 
+    # 12 | mouseUp | id=noVNC_mouse_capture_elem | 
     element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
-    # 19 | click | css=.exercise-page | 
+    # 13 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 20 | mouseDown | css=canvas | 
-    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).click_and_hold().perform()
-    # 21 | mouseUp | id=noVNC_mouse_capture_elem | 
-    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).release().perform()
-    # 22 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 23 | click | id=btnEndExercise | 
-    self.driver.find_element(By.ID, "btnEndExercise").click()
-    # 24 | click | id=btnConfirmEndExercise | 
-    self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
+  
