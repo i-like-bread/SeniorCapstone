@@ -12,12 +12,15 @@ def promptUser():
         print("\n'c' was pressed: Continuing")
         return "Continue"
     elif(key == 'w'):
+        keyboard.read_key()
         print("\n'w' was pressed: Waiting")
         return waitInput()
     elif(key == 'm'):
+        keyboard.read_key()
         print("\n'm' was pressed: MouseClick\nPress Enter to get MouseClick Coords")
         return mouseClickInput()
     elif(key == 'k'):
+        keyboard.read_key()
         print("\n'k' was pressed: KeyboardInput")
         return keyboardInput()
     else:
@@ -61,16 +64,13 @@ def keyboardInput():
 
 testValue = promptUser()
 
-def performAction():
-
+def performAction(testValue, input):
     if(testValue == 'Continue'):
         return
     elif(testValue[0] == 'MouseClick'):
-        pyautogui.moveTo(testValue[1])
+        pyautogui.moveTo(input)
         pyautogui.rightClick()
     elif(testValue[0] == 'KeyboardInput'):
-        keyboard.play(testValue[1])
+        keyboard.play(input)
     elif(testValue[0] == 'Wait'):
-        time.sleep(int(testValue[1][0]))
-
-performAction()
+        time.sleep(int(input))

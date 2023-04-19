@@ -2,6 +2,8 @@
 import pytest
 import time
 import json
+import functions
+from inspect import currentframe, getframeinfo
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -12,6 +14,8 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 username = input("Enter Username: ")
 password = input("Enter Password: ")
+
+user_responses = list()  # list of user specified actions
 
 class TestGolden3():
   def setup_method(self, method):
@@ -31,11 +35,11 @@ class TestGolden3():
     # 3 | click | id=username | 
     self.driver.find_element(By.ID, "username").click()
     # 4 | type | id=username |
-    self.driver.find_element(By.ID, "username").send_keys(username)
+    self.driver.find_element(By.ID, "username").send_keys("jacob.christoffers@ndsu.edu")
     # 5 | click | id=password | 
     self.driver.find_element(By.ID, "password").click()
     # 6 | type | id=password | 
-    self.driver.find_element(By.ID, "password").send_keys(password)
+    self.driver.find_element(By.ID, "password").send_keys("!1TestPassword")
     # 7 | click | id=loginbtn | 
     self.driver.find_element(By.ID, "loginbtn").click()
     # 8 | click | css=.activity-btn:nth-child(1) | 
@@ -43,7 +47,20 @@ class TestGolden3():
     # 9 | selectFrame | index=0 | 
     self.driver.switch_to.frame(0)
     # 10 | click | name=control | 
+    try:
+        wait = WebDriverWait(self.driver, 120)
+        wait.until(expected_conditions.element_to_be_clickable((By.NAME, "control")))
+    except:
+        print('By.NAME, "control" did not become clickable')
+        self.driver.quit()
     self.driver.find_element(By.NAME, "control").click()
+    try:
+        wait = WebDriverWait(self.driver, 360)
+        wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, "canvas")))
+    except:
+        print('By.CSS_SELECTOR, "canvas" did not become clickable')
+        self.driver.quit()
+        
     # 11 | click | css=.no-fullscreen:nth-child(1) | 
     self.driver.find_element(By.CSS_SELECTOR, ".no-fullscreen:nth-child(1)").click()
     # 12 | click | id=computersMenuButton | 
@@ -51,6 +68,7 @@ class TestGolden3():
     # 13 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa | 
     self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
     # 14 | mouseDown | css=canvas | 
+    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -61,6 +79,7 @@ class TestGolden3():
     # 16 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 17 | mouseDown | css=canvas | 
+    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -71,6 +90,7 @@ class TestGolden3():
     # 19 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 20 | mouseDown | css=canvas | 
+    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -83,4 +103,15 @@ class TestGolden3():
     # 23 | click | id=btnEndExercise | 
     self.driver.find_element(By.ID, "btnEndExercise").click()
     # 24 | click | id=btnConfirmEndExercise | 
+    try:
+        wait = WebDriverWait(self.driver, 120)
+        wait.until(expected_conditions.element_to_be_clickable((By.ID, "btnConfirmEndExercise")))
+    except:
+        print('By.ID, "btnConfirmEndExercise" did not become clickable')
+        self.driver.quit()
     self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
+
+testClass = TestGolden3()
+testClass.setup_method("")
+testClass.test_golden3()
+testClass.teardown_method("")

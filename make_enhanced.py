@@ -57,7 +57,7 @@ if class_def_found == False:
 # inserted into the enhanced script
 # Add explicit wait for start button (By.name, "control").
 control_btn_pattern = '\s*self\.driver\.find_element\(By.NAME, "control"\)'
-cmd_to_insert = make_wait_command(120, 'By.NAME, "control"') 
+cmd_to_insert = make_wait_command(5, 'By.NAME, "control"') 
 for line_num, line in enumerate(lines):
     match = re.match(control_btn_pattern, line)
     if match != None:
@@ -84,7 +84,7 @@ for line_num, line in enumerate(lines):
 # Add explicit wait for canvas to be ready AFTER start ("control") button
 # is clicked
 control_btn_pattern = '\s*self\.driver\.find_element\(By.NAME, "control"\)'
-cmd_to_insert = make_wait_command(360, 'By.CSS_SELECTOR, "canvas"')
+cmd_to_insert = make_wait_command(50, 'By.CSS_SELECTOR, "canvas"')
 for line_num, line in enumerate(lines):
     match = re.match(control_btn_pattern, line)
     if match != None:
@@ -133,7 +133,7 @@ for line_num, line in enumerate(lines):
 
 ## Add call to function.prompt_user before any action on canvas
 canvas_action_pattern = '^\s*\w+\s*=\s*self\.driver\.find_element\(By\.CSS_SELECTOR, "canvas"\)'
-cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, functions.prompt_user()))" # adds a tuple with the line number and the user response to the list
+cmd_to_insert = "user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))" # adds a tuple with the line number and the user response to the list
 line_num = 0 # current line number in lines being processed
 while line_num < len(lines):
     match = re.match(canvas_action_pattern, lines[line_num])
