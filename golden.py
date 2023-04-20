@@ -59,4 +59,24 @@ class TestTestrecon():
     actions.move_to_element(element).release().perform()
     # 13 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    # 14 | mouseDown | css=canvas | 
+    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).click_and_hold().perform()
+    # 15 | mouseUp | id=noVNC_mouse_capture_elem | 
+    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).release().perform()
+    # 16 | click | css=.exercise-page | 
+    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    # 17 | mouseDown | css=canvas | 
+    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).click_and_hold().perform()
+    # 18 | mouseUp | id=noVNC_mouse_capture_elem | 
+    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).release().perform()
+    # 19 | click | css=.exercise-page | 
+    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
   

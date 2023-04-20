@@ -5,7 +5,7 @@ import time
 # import re
 
 
-#listen for keyboard input from user: enter, w, m, or k
+#listen for keyboard input from user: c, m, or k
 def prompt_user():
     print("Press 'c' to continue, 'm' to move mouse, or 'k' to press keys")
     key = keyboard.read_key()
@@ -43,10 +43,9 @@ def keyboardInput():
     keyboard.read_key()
 
     #records keys
-    key_events = keyboard.record(until="esc")
-    #key_strings = list(keyboard.get_typed_strings(key_events))
-    #keyboardInputTuple = ("KeyboardInput", key_strings[0])
-    keyboardInputTuple = ("KeyboardInput", key_events)
+    key_events = (keyboard.record(until="esc"))
+    key_strings = list(keyboard.get_typed_strings(key_events))
+    keyboardInputTuple = ("KeyboardInput", key_strings[0])
     print(keyboardInputTuple)
     return keyboardInputTuple
 
@@ -63,8 +62,6 @@ def perform_action(testValue):
         pyautogui.click()
         time.sleep(3)
     elif(testValue[0] == 'KeyboardInput'):
-        print(testValue[1])
-        keyboard.play(testValue[1])
-
-test = prompt_user()
-perform_action(test)
+        print((testValue[1]))
+        keyboard.write(testValue[1])
+        time.sleep(3)

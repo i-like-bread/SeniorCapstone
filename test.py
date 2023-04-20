@@ -44,13 +44,13 @@ class TestTestrecon():
     # 6 | selectFrame | index=0 | 
     self.driver.switch_to.frame(0)
     # 7 | click | name=control | 
-    #try:
-        #wait = WebDriverWait(self.driver, 120)
-        #wait.until(expected_conditions.element_to_be_clickable((By.NAME, "control")))
-    #except:
-        #print('By.NAME, "control" did not become clickable')
-        #self.driver.quit()
-    #self.driver.find_element(By.NAME, "control").click()
+    try:
+        wait = WebDriverWait(self.driver, 120)
+        wait.until(expected_conditions.element_to_be_clickable((By.NAME, "control")))
+    except:
+        print('By.NAME, "control" did not become clickable')
+        self.driver.quit()
+    self.driver.find_element(By.NAME, "control").click()
     try:
         wait = WebDriverWait(self.driver, 360)
         wait.until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, "canvas")))
@@ -58,7 +58,7 @@ class TestTestrecon():
         print('By.CSS_SELECTOR, "canvas" did not become clickable')
         self.driver.quit()
     # 8 | mouseDown | css=canvas | 
-    functions.perform_action(('MouseClick', (79, 700)))
+    functions.perform_action(('MouseClick', (84, 755)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -69,7 +69,7 @@ class TestTestrecon():
     # 10 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 11 | mouseDown | css=canvas | 
-    functions.perform_action(('KeyboardInput', '[KeyboardEvent(w down), KeyboardEvent(a down), KeyboardEvent(w up), KeyboardEvent(s down), KeyboardEvent(a up), KeyboardEvent(d down), KeyboardEvent(s up), KeyboardEvent(d up), KeyboardEvent(esc down)]'))
+    functions.perform_action(('MouseClick', (346, 479)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -79,10 +79,34 @@ class TestTestrecon():
     actions.move_to_element(element).release().perform()
     # 13 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    # 14 | mouseDown | css=canvas | 
+    functions.perform_action(('KeyboardInput', 'ls'))
+    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).click_and_hold().perform()
+    # 15 | mouseUp | id=noVNC_mouse_capture_elem | 
+    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).release().perform()
+    # 16 | click | css=.exercise-page | 
+    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    # 17 | mouseDown | css=canvas | 
+    functions.perform_action('Continue')
+    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).click_and_hold().perform()
+    # 18 | mouseUp | id=noVNC_mouse_capture_elem | 
+    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).release().perform()
+    # 19 | click | css=.exercise-page | 
+    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
   
 
 testClass = TestTestrecon()
 testClass.setup_method("")
 testClass.test_testrecon()
+print("Sleeping for 10 seconds. End lab manually and log out if you want")
+time.sleep(10)
 testClass.teardown_method("")
 
