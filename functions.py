@@ -5,16 +5,13 @@ import time
 # import re
 
 
-#listen for keyboard input from user: enter, w, m, or k
+#listen for keyboard input from user: c, m, or k
 def prompt_user():
-    print("in prompt user")
+    print("Press 'c' to continue, 'm' to move mouse, or 'k' to press keys")
     key = keyboard.read_key()
     if(key == 'c'):
         print("\n'c' was pressed: Continuing")
-        return "Continue"
-    elif(key == 'w'):
-        print("\n'w' was pressed: Waiting")
-        return waitInput()
+        return "'Continue'"
     elif(key == 'm'):
         print("\n'm' was pressed: MouseClick\nPress Enter to get MouseClick Coords")
         return mouseClickInput()
@@ -24,14 +21,6 @@ def prompt_user():
     else:
         print("Try Again")
         return prompt_user()
-
-
-#wait for specified amount of time
-def waitInput():
-    waitTime = input("Enter amount of time to wait (Enter to finish): ")
-    waitTuple = tuple(('Wait', waitTime))
-    print(waitTuple)
-    return waitTuple
 
 
 #get MouseClick coords and click
@@ -52,30 +41,27 @@ def mouseClickInput():
 def keyboardInput():
     #reads the k key from user selection, is dead code
     keyboard.read_key()
+
     #records keys
-    keys = keyboard.record(until="esc")
-    keyboardInputTuple = ("KeyboardInput", keys)
+    key_events = (keyboard.record(until="esc"))
+    key_strings = list(keyboard.get_typed_strings(key_events))
+    keyboardInputTuple = ("KeyboardInput", key_strings[0])
     print(keyboardInputTuple)
-    #keyboard.play(keys)
     return keyboardInputTuple
 
 
-# testValue = prompt_user()
-
 def perform_action(testValue):
 
-    if(testValue[0] == 'Continue'):
+    if(testValue == 'Continue'):
         return
     elif(testValue[0] == 'MouseClick'):
         x = testValue[1][0]
         y = testValue[1][1]
         print(f"Moving mouse to {x},{y}")
         pyautogui.moveTo(x, y)
+        pyautogui.click()
         time.sleep(3)
-        # pyautogui.rightClick()
     elif(testValue[0] == 'KeyboardInput'):
-        keyboard.play(testValue[1])
-    elif(testValue[0] == 'Wait'):
-        time.sleep(int(testValue[1][0]))
-
-#perform_action()
+        print((testValue[1]))
+        keyboard.write(testValue[1])
+        time.sleep(3)
