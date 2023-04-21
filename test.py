@@ -34,6 +34,8 @@ class TestTestrecon():
     # 1 | open | /login/index.php | 
     self.driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=33")
     # 2 | setWindowSize | 1920x1055 | 
+    # 2 | setWindowPosition | 0X0 |
+    self.driver.set_window_position(0, 0)
     self.driver.set_window_size(1920, 1055)
     # 3 | type | id=username | username
     self.driver.find_element(By.ID, "username").send_keys(username)
@@ -58,7 +60,7 @@ class TestTestrecon():
         print('By.CSS_SELECTOR, "canvas" did not become clickable')
         self.driver.quit()
     # 8 | mouseDown | css=canvas | 
-    functions.perform_action(('MouseClick', (84, 755)))
+    functions.perform_action(('MouseClick', (93, 415)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -69,7 +71,7 @@ class TestTestrecon():
     # 10 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 11 | mouseDown | css=canvas | 
-    functions.perform_action(('MouseClick', (346, 479)))
+    functions.perform_action(('MouseClick', (392, 467)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -91,7 +93,7 @@ class TestTestrecon():
     # 16 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 17 | mouseDown | css=canvas | 
-    functions.perform_action('Continue')
+    functions.perform_action(('MouseClick', (1136, 404)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -106,7 +108,7 @@ class TestTestrecon():
 testClass = TestTestrecon()
 testClass.setup_method("")
 testClass.test_testrecon()
-print("Sleeping for 10 seconds. End lab manually and log out if you want")
-time.sleep(10)
+print("Sleeping for 30 seconds. End lab manually and log out if you want")
+time.sleep(30)
 testClass.teardown_method("")
 

@@ -2,8 +2,6 @@
 import pytest
 import time
 import json
-import sys
-import re
 import functions
 from inspect import currentframe, getframeinfo
 from selenium import webdriver
@@ -20,36 +18,34 @@ password = getpass()
 
 user_responses = list()  # list of user specified actions
 
-class TestGolden3():
+class TestTestrecon():
   def setup_method(self, method):
-    self.driver = webdriver.Chrome()
+    self.chrome_options = webdriver.ChromeOptions()
+    self.chrome_options.add_argument('--no-sandbox')
+    self.driver = webdriver.Chrome(options=self.chrome_options)
     self.vars = {}
   
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_golden3(self):
-    # Test name: golden3
+  def test_testrecon(self):
+    # Test name: test-recon
     # Step # | name | target | value
     # 1 | open | /login/index.php | 
-    self.driver.get("https://cyrin.atcorp.com/course/view.php?id=37")
-    # 2 | setWindowSize | 1552x840 | 
-    self.driver.set_window_size(1552, 840)
-    # 3 | click | id=username | 
-    self.driver.find_element(By.ID, "username").click()
-    # 4 | type | id=username |
+    self.driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=33")
+    # 2 | setWindowSize | 1920x1055 | 
+    # 2 | setWindowPosition | 0X0 |
+    self.driver.set_window_position(0, 0)
+    self.driver.set_window_size(1920, 1055)
+    # 3 | type | id=username | username
     self.driver.find_element(By.ID, "username").send_keys(username)
-    # 5 | click | id=password | 
-    self.driver.find_element(By.ID, "password").click()
-    # 6 | type | id=password | 
+    # 4 | type | id=password | password
     self.driver.find_element(By.ID, "password").send_keys(password)
-    # 7 | click | id=loginbtn | 
+    # 5 | click | id=loginbtn | 
     self.driver.find_element(By.ID, "loginbtn").click()
-    # 8 | click | css=.activity-btn:nth-child(1) | 
-    self.driver.find_element(By.CSS_SELECTOR, ".activity-btn:nth-child(1)").click()
-    # 9 | selectFrame | index=0 | 
+    # 6 | selectFrame | index=0 | 
     self.driver.switch_to.frame(0)
-    # 10 | click | name=control | 
+    # 7 | click | name=control | 
     try:
         wait = WebDriverWait(self.driver, 120)
         wait.until(expected_conditions.element_to_be_clickable((By.NAME, "control")))
@@ -63,14 +59,30 @@ class TestGolden3():
     except:
         print('By.CSS_SELECTOR, "canvas" did not become clickable')
         self.driver.quit()
-    # 11 | click | css=.no-fullscreen:nth-child(1) | 
-    self.driver.find_element(By.CSS_SELECTOR, ".no-fullscreen:nth-child(1)").click()
-    # 12 | click | id=computersMenuButton | 
-    self.driver.find_element(By.ID, "computersMenuButton").click()
-    # 13 | click | id=machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa | 
-    self.driver.find_element(By.ID, "machinestatus_Ubuntu2004Desktop-4000-0182-eba4edce-809a-3fe20a37e1aa").click()
+    # 8 | mouseDown | css=canvas | 
+    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
+    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).click_and_hold().perform()
+    # 9 | mouseUp | id=noVNC_mouse_capture_elem | 
+    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).release().perform()
+    # 10 | click | css=.exercise-page | 
+    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    # 11 | mouseDown | css=canvas | 
+    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
+    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).click_and_hold().perform()
+    # 12 | mouseUp | id=noVNC_mouse_capture_elem | 
+    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).release().perform()
+    # 13 | click | css=.exercise-page | 
+    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 14 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
+    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -81,7 +93,7 @@ class TestGolden3():
     # 16 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 17 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
+    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -91,77 +103,35 @@ class TestGolden3():
     actions.move_to_element(element).release().perform()
     # 19 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 20 | mouseDown | css=canvas | 
-    user_responses.append((getframeinfo(currentframe()).lineno, functions.promptUser()))
-    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).click_and_hold().perform()
-    # 21 | mouseUp | id=noVNC_mouse_capture_elem | 
-    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).release().perform()
-    # 22 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-    # 23 | click | id=btnEndExercise | 
-    self.driver.find_element(By.ID, "btnEndExercise").click()
-    # 24 | click | id=btnConfirmEndExercise | 
-    try:
-        wait = WebDriverWait(self.driver, 120)
-        wait.until(expected_conditions.element_to_be_clickable((By.ID, "btnConfirmEndExercise")))
-    except:
-        print('By.ID, "btnConfirmEndExercise" did not become clickable')
-        self.driver.quit()
-    self.driver.find_element(By.ID, "btnConfirmEndExercise").click()
+  
 
-testClass = TestGolden3()
+testClass = TestTestrecon()
 testClass.setup_method("")
-testClass.test_golden3()
+testClass.test_testrecon()
+print("Sleeping for 30 seconds. End lab manually and log out if you want")
+time.sleep(30)
 testClass.teardown_method("")
 
-current_file = 'enhanced.py'
-new_file = 'test_script.py'
+### THE FOLLOWING LINES SHOULD NOT APPEAR IN TEST SCRIPT ###
+## Create test script by modifying the in-memory enhanced script
+for _, user_resp in enumerate(user_responses):
+    line_num = user_resp[0]
+    action = user_resp[1]
+    curr_line = escript[line_num]  # current line at line_num
+    replacement_line = f'functions.perform_action({action})'
+    # find indentation of current line
+    num_spaces = len(curr_line) - len(curr_line.lstrip())
+    total_line_len = num_spaces + len(replacement_line)
+    indented_replacement = replacement_line.rjust(total_line_len, ' ')
+    print(f'Replacing {line_num}: {curr_line} with {indented_replacement}')
+    # replace prompt_user line with perform_action line
+    escript[line_num] = indented_replacement
 
-with open(current_file, 'r') as gf:
-  lines = gf.read().splitlines()
-
-prompt_user_pattern = "^\s*user_responses\.append\(\(getframeinfo\(currentframe\(\)\)\.lineno, functions\.promptUser\(\)\)\)" 
-line_num = 0
-for line_num, line in enumerate(lines):
-  while line_num < len(lines):
-    # Check for a line that contains prompt_user
-    match = re.match(prompt_user_pattern, lines[line_num])
-    if match != None:
-      for item_num, item in enumerate(user_responses):
-        # Check to make sure that the current line matches with a line from user_responses
-        if (line_num+1) == user_responses[item_num][0]:
-          args = user_responses[item_num][1]
-          action = args[0]
-          action = '"' + action + '"'
-          arg1 = ""
-          arg2 = ""
-          match action:
-            case '"noop"':
-              arg1 = "()"
-            case '"Wait"':
-              arg1 = ''.join(map(str, args[1]))
-            case '"KeyboardInput"':
-              arg1 = args[1]
-            case '"MouseClick"':
-              action_args = args[1]
-              x_coord = action_args[0]
-              y_coord = action_args[1]
-              arg1 = str(x_coord)
-              arg2 = str(y_coord)
-              arg1 = arg1 + ", " + arg2
-          lines.insert(line_num, '    functions.performAction((' + action + ', (' + arg1 + ')))')
-          lines.pop(line_num+1)
-      break        
-    else:
-      line_num += 1
-
-with open(new_file, 'w') as ef:
-    for line_num, line in enumerate(lines):
-        ef.write(line + "\n")
-
-sys.exit("Created file " + new_file)
-
+# Write to test script file
+test_file_name = "test.py"
+with open(test_file_name, 'w') as tf:
+    for _, line in enumerate(escript):
+        if line != marker_line:
+            tf.write(line + '\n')
+        else:
+            break

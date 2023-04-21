@@ -77,6 +77,27 @@ for line_num, line in enumerate(escript):
             escript.insert(line_num+i, line_to_insert)
 
         break  # all done 
+    
+## Add a line to set the window position of the browser to 0 x 0
+# Also inserts a comment that mimics ones from Selenium IDE
+lines_to_insert = []
+lines_to_insert.append("# 2 | setWindowPosition | 0X0 |")
+lines_to_insert.append("self.driver.set_window_position(0, 0)")
+window_size_pattern = '\s*self\.driver\.set_window_size'
+for line_num, line in enumerate(escript):
+    match = re.match(window_size_pattern, line)
+    if match != None:
+        # found line that sets the window size
+        # find indentation of current line (num spaces)
+        num_spaces = len(line) - len(line.lstrip())
+        
+        #indent and insert new lines
+        for i, line in enumerate(lines_to_insert):
+            total_line_len = num_spaces + len(line)
+            line_to_insert = line.rjust(total_line_len, ' ')
+            escript.insert(line_num+i, line_to_insert)
+            
+        break # all done
         
 ## Add explicit waits for certain HTML elements to be loaded (e.g. start
 ## button, canvas, etc)
@@ -213,8 +234,8 @@ escript.append("")   # blank line for readability
 escript.append("testClass = " + test_class_name + "()")
 escript.append('testClass.setup_method("")')
 escript.append("testClass." + test_method_name + "()")
-escript.append('print("Sleeping for 10 seconds. End lab manually and log out if you want")')
-escript.append('time.sleep(10)')
+escript.append('print("Sleeping for 30 seconds. End lab manually and log out if you want")')
+escript.append('time.sleep(30)')
 escript.append('testClass.teardown_method("")')
         
 ## Replace calls to prompt_user with calls of perform_action in array escript.
