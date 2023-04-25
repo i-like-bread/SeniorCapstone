@@ -58,7 +58,7 @@ class TestTestrecon():
         print('By.CSS_SELECTOR, "canvas" did not become clickable')
         self.driver.quit()
     # 8 | mouseDown | css=canvas | 
-    functions.perform_action(('MouseClick', (84, 755)))
+    functions.perform_action(('MouseClick', (3117, 788)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -69,7 +69,7 @@ class TestTestrecon():
     # 10 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 11 | mouseDown | css=canvas | 
-    functions.perform_action(('MouseClick', (346, 479)))
+    functions.perform_action(('MouseClick', (3404, 530)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -106,7 +106,7 @@ class TestTestrecon():
 testClass = TestTestrecon()
 testClass.setup_method("")
 testClass.test_testrecon()
-print("Sleeping for 10 seconds. End lab manually and log out if you want")
-time.sleep(10)
+print("Sleeping for 20 seconds. End lab manually and log out if you want")
+time.sleep(20)
 testClass.teardown_method("")
 

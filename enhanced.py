@@ -106,8 +106,8 @@ class TestTestrecon():
 testClass = TestTestrecon()
 testClass.setup_method("")
 testClass.test_testrecon()
-print("Sleeping for 10 seconds. End lab manually and log out if you want")
-time.sleep(10)
+print("Sleeping for 20 seconds. End lab manually and log out if you want")
+time.sleep(20)
 testClass.teardown_method("")
 
 ### THE FOLLOWING LINES SHOULD NOT APPEAR IN TEST SCRIPT ###
