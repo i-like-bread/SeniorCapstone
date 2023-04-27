@@ -1,78 +1,67 @@
 import pyautogui
-from pynput import keyboard
+# import pynput
+import keyboard
 import time
+# import re
 
 
-
-#listen for keyboard input from user: enter, w, m, or k
-def promptUser():
-    with keyboard.Listener(on_press=on_press_key, on_release=on_release_key) as listener:
-        listener.join()
-
-#filler
-def on_press_key(key):
-    print("")
-
-#if enter -> continue (end thread), w -> wait, m -> mouseClick, k -> keyboardInput
-#ToDo: Add wait functionality
-def on_release_key(key):
-    if(key == keyboard.Key.enter):
-        print(key,"was pressed: Continued")
-        return False
-    elif(key.char == 'w'):
-        print(key,"was pressed: Waiting")
-        #ToDo: Fix
-        #waitInput(key)
-    elif(key.char == 'm'):
-        print(key,"was pressed: MouseClick")
-        mouseClickInput()
-    elif(key.char == 'k'):
-        print(key,"was pressed: KeyboardInput")
-        keyboardInput()
+#listen for keyboard input from user: c, m, or k
+def prompt_user():
+    print("Press 'c' to continue, 'm' to move mouse, or 'k' to press keys")
+    key = keyboard.read_key()
+    if(key == 'c'):
+        print("\n'c' was pressed: Continuing")
+        return "'Continue'"
+    elif(key == 'm'):
+        print("\n'm' was pressed: MouseClick\nPress Enter to get MouseClick Coords")
+        return mouseClickInput()
+    elif(key == 'k'):
+        print("\n'k' was pressed: KeyboardInput")
+        return keyboardInput()
     else:
-        print(key,"is invalid, try again")
-
-
-
-#wait for specified amount of time
-#ToDo: Fix
-def waitInput(key):
-    print("Wait",key)
-    #time.sleep(int(key))
-
+        print("Try Again")
+        return prompt_user()
 
 
 #get MouseClick coords and click
 def mouseClickInput():
-    #wait until user hits enter
-    action()
-    #get current mouse position
-    mousePos = pyautogui.position()
-    #pass coords to print
-    (x, y) = (mousePos.x, mousePos.y)
-    print("MouseClick at", (x, y))
-    #click at the current position
-    pyautogui.click(mousePos)
+    key = keyboard.read_key()
+    if(key == 'enter'):
+        #get current mouse position
+        mousePos = pyautogui.position()
+        #pass coords to print
+        coords = tuple((mousePos.x, mousePos.y))
+        mouseClickTuple = ("MouseClick", coords)
+        print(mouseClickTuple)
+        return mouseClickTuple
+    else:
+        return mouseClickInput()
+        
 
-
-
-#listen to keyboard until user presses enter
-#ToDo: join printed chars together into a string
 def keyboardInput():
-    action()
+    #reads the k key from user selection, is dead code
+    keyboard.read_key()
+
+    #records keys
+    key_events = (keyboard.record(until="esc"))
+    key_strings = list(keyboard.get_typed_strings(key_events))
+    keyboardInputTuple = ("KeyboardInput", key_strings[0])
+    print(keyboardInputTuple)
+    return keyboardInputTuple
 
 
+def perform_action(testValue):
 
-#listen until enter key is hit
-#used to know when user is done with action, is nested in other functions
-def action():
-    with keyboard.Listener(on_press=on_press, on_release=on_release_enter) as listener:
-        listener.join()
-
-def on_press(key):
-    print(key)
-
-def on_release_enter(key):
-    if(key == keyboard.Key.enter):
-        print("Released Enter (Completed Action)")
-        return False
+    if(testValue == 'Continue'):
+        return
+    elif(testValue[0] == 'MouseClick'):
+        x = testValue[1][0]
+        y = testValue[1][1]
+        print(f"Moving mouse to {x},{y}")
+        pyautogui.moveTo(x, y)
+        pyautogui.click()
+        time.sleep(3)
+    elif(testValue[0] == 'KeyboardInput'):
+        print((testValue[1]))
+        keyboard.write(testValue[1])
+        time.sleep(3)
