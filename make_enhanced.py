@@ -4,9 +4,9 @@ import sys
 import re   # regular expressions
 from make_enhanced_utils import make_wait_command
 
-golden_file_name = "golden.py"
-enhanced_file_name = "enhanced.py"
-test_file_name = "test.py"
+golden_file_name = "malwareLab.py"
+enhanced_file_name = "malwareLab_enhanced.py"
+test_file_name = "malwareLab_test.py"
 
 # Read golden file into a list of lines call escript (enhanced
 # script).  The escript is an enhanced version of the golden script
