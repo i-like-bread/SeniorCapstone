@@ -13,12 +13,24 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from getpass import getpass
 
+"""
+  Introduction to Metasploit
+
+  Login normally
+  Scroll and click begin lab
+  Click start button
+  Click terminal icon
+  Click terminal window
+  Enter ip addr and press enter
+  Click terminal window exit
+"""
+
 username = input("Enter Username: ")
 password = getpass()
 
 user_responses = list()  # list of user specified actions
 
-class TestTestrecon():
+class TestIwjnckawjnec():
   def setup_method(self, method):
     self.chrome_options = webdriver.ChromeOptions()
     self.chrome_options.add_argument('--no-sandbox')
@@ -27,25 +39,31 @@ class TestTestrecon():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
-  def test_testrecon(self):
-    # Test name: test-recon
+
+  def test_iwjnckawjnec(self):
+    # Test name: iwjnckawjnec
     # Step # | name | target | value
     # 1 | open | /login/index.php | 
-    self.driver.get("https://cyrin.atcorp.com/mod/cyrin/view.php?id=33")
-    # 2 | setWindowSize | 1920x1055 | 
+    self.driver.get("https://cyrin.atcorp.com/course/view.php?id=17")
+    # 2 | setWindowSize | 1920x1016 | 
     # 2 | setWindowPosition | 0X0 |
     self.driver.set_window_position(0, 0)
-    self.driver.set_window_size(1920, 1055)
-    # 3 | type | id=username | username
+    self.driver.set_window_size(1920, 1016)
+    # 3 | click | id=username | 
+    self.driver.find_element(By.ID, "username").click()
+    # 4 | type | id=username | jacob.christoffers@ndsu.edu
     self.driver.find_element(By.ID, "username").send_keys(username)
-    # 4 | type | id=password | password
+    # 5 | click | id=password | 
+    self.driver.find_element(By.ID, "password").click()
+    # 6 | type | id=password | !1TestPassword
     self.driver.find_element(By.ID, "password").send_keys(password)
-    # 5 | click | id=loginbtn | 
+    # 7 | click | id=loginbtn | 
     self.driver.find_element(By.ID, "loginbtn").click()
-    # 6 | selectFrame | index=0 | 
+    # 8 | click | css=.activity-btn:nth-child(1) | 
+    self.driver.find_element(By.CSS_SELECTOR, ".activity-btn:nth-child(1)").click()
+    # 9 | selectFrame | index=0 | 
     self.driver.switch_to.frame(0)
-    # 7 | click | name=control | 
+    # 10 | click | name=control | 
     try:
         wait = WebDriverWait(self.driver, 120)
         wait.until(expected_conditions.element_to_be_clickable((By.NAME, "control")))
@@ -59,19 +77,8 @@ class TestTestrecon():
     except:
         print('By.CSS_SELECTOR, "canvas" did not become clickable')
         self.driver.quit()
-    # 8 | mouseDown | css=canvas | 
-    functions.perform_action(('mouse_input', (77, 742)))
-    element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).click_and_hold().perform()
-    # 9 | mouseUp | id=noVNC_mouse_capture_elem | 
-    element = self.driver.find_element(By.ID, "noVNC_mouse_capture_elem")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).release().perform()
-    # 10 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 11 | mouseDown | css=canvas | 
-    functions.perform_action(('mouse_input', (333, 732)))
+    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -80,9 +87,9 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 13 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    #self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 14 | mouseDown | css=canvas | 
-    functions.perform_action(('keyboard_input', 'ls'))
+    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -91,9 +98,9 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 16 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    #self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
     # 17 | mouseDown | css=canvas | 
-    functions.perform_action('continue')
+    user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -102,13 +109,36 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 19 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    #self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
   
 
-testClass = TestTestrecon()
+testClass = TestIwjnckawjnec()
 testClass.setup_method("")
-testClass.test_testrecon()
+testClass.test_iwjnckawjnec()
 print("Sleeping for 20 seconds, exit the lab and logout if you want")
 time.sleep(20)
 testClass.teardown_method("")
 
+### THE FOLLOWING LINES SHOULD NOT APPEAR IN TEST SCRIPT ###
+## Create test script by modifying the in-memory enhanced script
+for _, user_resp in enumerate(user_responses):
+    line_num = user_resp[0]
+    action = user_resp[1]
+    curr_line = escript[line_num]  # current line at line_num
+    replacement_line = f'functions.perform_action({action})'
+    # find indentation of current line
+    num_spaces = len(curr_line) - len(curr_line.lstrip())
+    total_line_len = num_spaces + len(replacement_line)
+    indented_replacement = replacement_line.rjust(total_line_len, ' ')
+    print(f'Replacing {line_num}: {curr_line} with {indented_replacement}')
+    # replace prompt_user line with perform_action line
+    escript[line_num] = indented_replacement
+
+# Write to test script file
+test_file_name = "Metasploit_test.py"
+with open(test_file_name, 'w') as tf:
+    for _, line in enumerate(escript):
+        if line != marker_line:
+            tf.write(line + '\n')
+        else:
+            break
