@@ -234,6 +234,8 @@ escript.append("")   # blank line for readability
 escript.append("testClass = " + test_class_name + "()")
 escript.append('testClass.setup_method("")')
 escript.append("testClass." + test_method_name + "()")
+escript.append('print("Sleeping for 20 seconds, exit the lab and logout if you want")')
+escript.append('time.sleep(20)')
 escript.append('testClass.teardown_method("")')
         
 ## Replace calls to prompt_user with calls of perform_action in array escript.
@@ -285,4 +287,3 @@ str_to_execute = "\n".join( line for line in escript)
 exec(str_to_execute, {'escript':escript, 'marker_line':marker_line})
 
 sys.exit(f'Completed exection of {__file__}')
-
