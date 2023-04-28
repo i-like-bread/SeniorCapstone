@@ -79,4 +79,4 @@ class TestTestrecon():
     actions.move_to_element(element).release().perform()
     # 19 | click | css=.exercise-page | 
     self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-  
+
