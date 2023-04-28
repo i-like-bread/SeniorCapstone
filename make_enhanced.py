@@ -229,6 +229,11 @@ while test_class_name == None or test_method_name == None:
 
     curr_line_num += 1
 
+# find end exercise button click and replace with a new line that will actually close it
+for line_num, line in enumerate(escript):
+    if re.match("^\s*self.driver.find_element(By.ID, 'btnEndExercise').click()", line):
+        escript.replace("self.driver.find_element(By.ID, 'btnEndExercise').click()", "self.driver.execute_script('document.getElementById('btnEndExercise').click()')")
+
 # inserts calls to create test class and to run test
 escript.append("")   # blank line for readability
 escript.append("testClass = " + test_class_name + "()")
