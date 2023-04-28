@@ -69,7 +69,7 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 10 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    
     # 11 | mouseDown | css=canvas | 
     user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
@@ -80,7 +80,7 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 13 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    
     # 14 | mouseDown | css=canvas | 
     user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
@@ -91,7 +91,7 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 16 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    
     # 17 | mouseDown | css=canvas | 
     user_responses.append((getframeinfo(currentframe()).lineno-1, functions.prompt_user()))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
@@ -102,7 +102,7 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 19 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    
   
 
 testClass = TestTestrecon()
