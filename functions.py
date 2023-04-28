@@ -8,6 +8,7 @@ import time
 #listen for keyboard input from user: c, m, or k
 def prompt_user():
     print("Press 'c' to continue, 'm' to move mouse, or 'k' to press keys")
+    #key is passed here, trying to block it so it doesn't show up in terminal but also reads the value
     key = keyboard.read_key()
     if(key == 'c'):
         print("\n'c' was pressed: Continuing")
@@ -65,4 +66,5 @@ def perform_action(test_value):
     elif(test_value[0] == 'keyboard_input'):
         print((test_value[1]))
         keyboard.write(test_value[1])
+        keyboard.play
         time.sleep(3)
