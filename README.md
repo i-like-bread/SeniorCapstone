@@ -1,11 +1,16 @@
 # Senior Capstone Project 
-Group Project for NDSU CSCI 445
+- For the expo demo, the process is:
+    - login
+    - click start button
+    - wait for vm to spin up
+    - click terminal icon (5 second wait)
+    - click terminal window (5 second wait)
+    - enter 'nmap -n -sn 192.168.177.0/24' (15 second wait)
+    - enter 'fping -g -s 192.168.177.0/24' (15 second wait) (popup appears here after the command finishes) 
+    - stop script and say to close/continue on the popup and let the user exit the lab (45 second wait)
 
-Using:
-- Python
-- Selenium
-- ATCorp: CYRIN (account required)
-
-Goals:
-- To create a test execution tool that will automate testing each CYRIN lab
-- To create a test creation tool that will copy user input and save it to run in the test execution tool
+- The first goal of the lab is to identify live machines on the network (the process explained above)
+    - The nmap command sends packets to all 255 ip addresses in the 192.168.177.0/24 network. 
+        - The -n option tells nmap to not do DNS resolution and the -sn option tells nmap to do a ping scan rather than a port scan; this command finds 4 live machines on the network (including the vm you're running). 
+    - The fping command is similar to a ping, but it runs more efficiently when used against multiple hosts. 
+        - The -g option tells fping to generate ip addresses to scan and the -s option tells fping to print the cumulative statistics it found during the run at exit. At the top of the finished fping command, you should see the live hosts.
