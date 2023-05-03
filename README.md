@@ -1,13 +1,13 @@
 # Senior Capstone Project 
 - For the expo demo, the process is:
-    - login
-    - click start button
-    - wait for vm to spin up
-    - click terminal icon (5 second wait)
-    - click terminal window (5 second wait)
-    - enter 'nmap -n -sn 192.168.177.0/24' (15 second wait)
-    - enter 'fping -g -s 192.168.177.0/24' (15 second wait) (popup appears here after the command finishes) 
-    - stop script and say to close/continue on the popup and let the user exit the lab (45 second wait)
+    - Login
+    - Click start button
+    - Wait for vm to spin up
+    - Click terminal icon (5 second wait)
+    - Click terminal window (5 second wait)
+    - Enter 'nmap -n -sn 192.168.177.0/24' (15 second wait)
+    - Enter 'fping -g -s 192.168.177.0/24' (15 second wait) (popup appears here after the command finishes) 
+    - Stop script and say to close/continue on the popup and let the user exit the lab (45 second wait)
 
 - The first goal of the lab is to identify live machines on the network (the process explained above)
     - The nmap command sends packets to all 255 ip addresses in the 192.168.177.0/24 network. 
