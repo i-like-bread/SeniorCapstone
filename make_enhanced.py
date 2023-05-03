@@ -207,6 +207,29 @@ while line_num < len(escript):
         line_num += 1  # since we added a line
     line_num += 1  # go to next line
     
+
+## Search through the script and delete any clicks on the exercise page
+exercise_page_pattern = '^\s*self\.driver\.find_element\(By\.CSS_SELECTOR, "\.exercise-page"\)\.click\(\)'
+replacement = ''
+line_num = 0
+while line_num < len(escript):
+    match = re.match(exercise_page_pattern, escript[line_num])
+    if match != None:
+        # found line with click on .exercise-page. Replace with an empty line
+        line = escript[line_num]
+        
+        # find indentation of current line (num spaces)
+        num_spaces = len(line) - len(line.lstrip())
+        
+        # add necessary number of spaces before the replacement
+        total_line_len = num_spaces + len(replacement)
+        line_to_insert = replacement.rjust(total_line_len, ' ')
+        
+        # replace line
+        escript[line_num] = line_to_insert
+    line_num += 1 # go to next line
+
+    
 ## find name of the test class and test method created by Selenium
 test_class_name = test_method_name = None
 curr_line_num = 0
@@ -228,6 +251,11 @@ while test_class_name == None or test_method_name == None:
         test_method_name = test_method_name.replace("(self):", "") 
 
     curr_line_num += 1
+
+# find end exercise button click and replace with a new line that will actually close it
+for line_num, line in enumerate(escript):
+    if re.match("^\s*self.driver.find_element(By.ID, 'btnEndExercise').click()", line):
+        escript.replace("self.driver.find_element(By.ID, 'btnEndExercise').click()", "self.driver.execute_script('document.getElementById('btnEndExercise').click()')")
 
 # inserts calls to create test class and to run test
 escript.append("")   # blank line for readability
