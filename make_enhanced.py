@@ -262,8 +262,8 @@ escript.append("")   # blank line for readability
 escript.append("testClass = " + test_class_name + "()")
 escript.append('testClass.setup_method("")')
 escript.append("testClass." + test_method_name + "()")
-escript.append('print("Sleeping for 20 seconds, exit the lab and logout if you want")')
-escript.append('time.sleep(20)')
+escript.append('print("Sleeping for 45 seconds, close the goal prompt and exit the lab if you want")')
+escript.append('time.sleep(45)')
 escript.append('testClass.teardown_method("")')
         
 ## Replace calls to prompt_user with calls of perform_action in array escript.

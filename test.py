@@ -60,7 +60,7 @@ class TestTestrecon():
         print('By.CSS_SELECTOR, "canvas" did not become clickable')
         self.driver.quit()
     # 8 | mouseDown | css=canvas | 
-    functions.perform_action(('mouse_input', (77, 742)))
+    functions.perform_action(('mouse_input', (79, 738)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -69,9 +69,9 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 10 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    
     # 11 | mouseDown | css=canvas | 
-    functions.perform_action(('mouse_input', (333, 732)))
+    functions.perform_action(('mouse_input', (330, 717)))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -80,9 +80,9 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 13 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    
     # 14 | mouseDown | css=canvas | 
-    functions.perform_action(('keyboard_input', 'ls'))
+    functions.perform_action(('keyboard_input', 'nmap -n -sn 192.168.177.0/24'))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -91,9 +91,9 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 16 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
+    
     # 17 | mouseDown | css=canvas | 
-    functions.perform_action('continue')
+    functions.perform_action(('keyboard_input', 'fping -g -s 192.168.177.0/24'))
     element = self.driver.find_element(By.CSS_SELECTOR, "canvas")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
@@ -102,13 +102,14 @@ class TestTestrecon():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     # 19 | click | css=.exercise-page | 
-    self.driver.find_element(By.CSS_SELECTOR, ".exercise-page").click()
-  
+    
+
+    
 
 testClass = TestTestrecon()
 testClass.setup_method("")
 testClass.test_testrecon()
-print("Sleeping for 20 seconds, exit the lab and logout if you want")
-time.sleep(20)
+print("Sleeping for 45 seconds, close the goal prompt and exit the lab if you want")
+time.sleep(45)
 testClass.teardown_method("")
 

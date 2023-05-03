@@ -61,10 +61,10 @@ def perform_action(test_value):
         print(f"Moving mouse to {x},{y}")
         pyautogui.moveTo(x, y)
         pyautogui.click()
-        time.sleep(3)
+        time.sleep(5)
     #playback keys
     elif(test_value[0] == 'keyboard_input'):
         print((test_value[1]))
         keyboard.write(test_value[1])
-        keyboard.play
-        time.sleep(3)
+        keyboard.press_and_release('enter')
+        time.sleep(15)

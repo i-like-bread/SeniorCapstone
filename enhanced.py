@@ -103,11 +103,14 @@ class TestTestrecon():
     actions.move_to_element(element).release().perform()
     # 19 | click | css=.exercise-page | 
     
-  
+
+    
 
 testClass = TestTestrecon()
 testClass.setup_method("")
 testClass.test_testrecon()
+print("Sleeping for 45 seconds, close the goal prompt and exit the lab if you want")
+time.sleep(45)
 testClass.teardown_method("")
 
 ### THE FOLLOWING LINES SHOULD NOT APPEAR IN TEST SCRIPT ###
